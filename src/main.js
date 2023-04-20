@@ -1,6 +1,11 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 
-import './assets/main.css'
+// axios依赖
+import axios from './http/http'
 
-createApp(App).mount('#app')
+
+let app = createApp(App);
+//全局挂载axios
+app.config.globalProperties.$axios = axios
+app.mount('#app')
