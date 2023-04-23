@@ -1,8 +1,8 @@
 <template>
   <div id="app" v-cloak>
-    <layoutHeader></layoutHeader>
+    <layoutHeader v-if="conceal"></layoutHeader>
     <layoutBody></layoutBody>
-    <layoutFooter></layoutFooter>
+    <layoutFooter v-if="conceal"></layoutFooter>
   </div>
 </template>
 
@@ -10,15 +10,16 @@
 import layoutHeader from '@/components/layout/layout-header.vue'
 import layoutBody from '@/components/layout/layout-body.vue'
 import layoutFooter from '@/components/layout/layout-footer.vue'
+import { mapState } from 'vuex'
 export default {
   components:{
     layoutHeader,
     layoutBody,
     layoutFooter
   },
-  // mounted() {
-  //   this.$axios.post('user/verify')
-  // }
+  computed:{
+    ...mapState(['conceal'])
+  }
 }
 </script>
 <style lang="less">

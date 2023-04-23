@@ -34,7 +34,7 @@
       <main class="site-main">
         <div class="notify">
           <div class="search-result">
-            <span>搜索结果："{{ classify }}" 相关文章</span>
+            <span>分类"{{ classify }}" 相关文章</span>
           </div>
         </div>
         <div v-for="item in postList">
@@ -54,6 +54,8 @@ import sectionTitle from '@/components/section-title.vue'
 import Post from '@/components/post.vue'
 import SmallIco from '@/components/small-ico.vue'
 import Quote from '@/components/quote.vue'
+import {mapMutations} from "vuex";
+import store from "@/state";
 
 export default {
   name: 'Home',
@@ -74,6 +76,8 @@ export default {
   mounted() {
     this.getFeatures();
     this.getPostList();
+    localStorage.setItem('conceal',true)
+    store.dispatch('init')
   },
   computed: {
     classify() {

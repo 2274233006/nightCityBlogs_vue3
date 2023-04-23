@@ -19,7 +19,7 @@
           </header>
           <!-- 正文输出 -->
           <div class="entry-content">
-
+            <v-md-preview-html :html="html" preview-class="vuepress-markdown-body"></v-md-preview-html>
           </div>
           <!-- 文章底部 -->
           <section-title>
@@ -60,6 +60,7 @@ export default {
   name: 'articles',
   data() {
     return {
+      html:"<h1>1111111111</h1>",
       showDonate: false,
     }
   },

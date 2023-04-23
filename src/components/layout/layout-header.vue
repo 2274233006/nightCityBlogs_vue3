@@ -30,7 +30,7 @@
         <router-link to="/about">关于</router-link>
       </div>
       <div class="menu-item">
-        <router-link to="/">登录</router-link>
+        <router-link to="/login">登录</router-link>
       </div>
     </div>
   </div>
