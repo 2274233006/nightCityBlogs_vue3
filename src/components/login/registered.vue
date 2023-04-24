@@ -1,5 +1,4 @@
 
-
 <template>
   <div class="area">
     <div class="bg">
@@ -24,23 +23,61 @@
         <input
             type="password"
             name="密码"
-            v-model="password"/>
+            v-model="password"
+            @keyup.enter=""
+        />
       </div>
-      <div class="fg">
-        <div style="font-size: 12px; margin-top: 11px">
-          <el-link @click="forget">忘记密码</el-link>
-        </div>
+      <div class="password2" >
+        <div id="yonghu" >确认密码</div>
+        <el-popover
+            placement="top-start"
+            :width="250"
+            trigger="click"
+            content="请确保与先前输入一致">
+          <template #reference>
+            <input type="password" name="密码" v-model="notarizePassword"/>
+          </template>
+        </el-popover>
       </div>
-      <el-button class="btn" type="primary" @click="login">
-        登录
+      <div class="email" >
+        <div id="yonghu" >邮&emsp;&emsp;箱</div>
+        <el-popover
+            placement="top-start"
+            :width="250"
+            trigger="click"
+            content="确保邮箱地址格式正确且可用">
+          <template #reference>
+            <input type="password" name="密码" v-model="email"/>
+          </template>
+        </el-popover>
+      </div>
+      <div class="button">
+        <el-button>获取验证码</el-button>
+      </div>
+      <div class="emailAuthCode" >
+        <div id="yonghu" >邮箱验证</div>
+        <el-popover
+            placement="top-start"
+            :width="250"
+            trigger="click"
+            content="或者应该可能发你邮箱啦">
+          <template #reference>
+            <input type="password" name="验证码" v-model="verification"/>
+          </template>
+        </el-popover>
+      </div>
+      <!-- 通过v-model绑定rem传递Boolean值判定是否记忆 -->
+      <el-button class="btn" type="primary">
+        注册
       </el-button>
       <div class="reg">
-        <el-link @click="registered">没账号还不注册</el-link>
+        <el-link @click="login">有账号快去登录</el-link>
       </div>
     </div>
   </div>
 
 </template>
+
 
 <script>
 import store from "@/state";
@@ -50,28 +87,29 @@ export default {
     return {
       username: "",
       password: "",
+      notarizePassword:"",//确认密码
+      email:"",
+      verification:"",//验证码
+
     };
   },
   methods: {
     //登录跳转
     login() {
-      this.$router.push("/");
+      this.$router.push("/login");
     },
-    //注册
-    registered() {
+    registered(){
       this.$router.push("/registered")
-    },
-    //忘记密码
-    forget() {
-      this.$router.push("/forget")
-    },
+    }
   },
   mounted() {
-    localStorage.setItem('conceal', false)
+    localStorage.setItem('conceal',false)
     store.dispatch('init')
   }
 };
+
 </script>
+
 
 
 <style scoped>
@@ -87,82 +125,95 @@ export default {
   -webkit-box-sizing: border-box;
 
 }
-
-body {
-  width: 100%;
-  background-size: 100%;
+.bg{
+  width: 500px;
+  height: 445px;
+  background: #fff;
+  position: relative;
+  position:absolute;
+  left:0px;
+  top:0px;
+  right:0px;
+  bottom:0px;
+  margin:auto;
+  z-index: 1;
+  box-shadow:0px 0px 50px rgba(0, 0, 0, 0.4);
+  border-radius: 15px;
 }
-
-.area {
+.area{
   height: 100vh;
   background-image: url("/public/login.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
 }
-
-.bg {
-  width: 415px;
-  height: 320px;
-  background: #fff;
-  position: relative;
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  margin: auto;
-  z-index: 1;
-  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.4);
-  border-radius: 15px;
-}
-
-.password {
+.password{
   position: absolute;
   top: 9.5rem;
   right: 3.5rem;
   display: flex;
 }
-
-.btn {
+.password2{
   position: absolute;
-  top: 14.6rem;
+  top: 12.8rem;
+  right: 3.5rem;
+  display: flex;
+}
+.email{
+  position: absolute;
+  top: 16.1rem;
+  right: 3.5rem;
+  display: flex;
+}
+.button{
+  position: absolute;
+  top: 16.1rem;
+  right: 3.5rem;
+  display: flex;
+}
+.emailAuthCode{
+  position: absolute;
+  top: 19.6rem;
+  right: 3.5rem;
+  display: flex;
+}
+.btn{
+  position: absolute;
+  top: 23.1rem;
   right: 3.5rem;
   /* border: none; */
   /* color: #fff; */
-  width: 20.3rem;
+  width: 23.5rem;
+  /* text-align: center; */
+  /* background-color: #2D456B; */
+  text-indent: 0rem;
+}
+.reg{
+  position: absolute;
+  top: 25.7rem;
+  right: -3rem;
+  /* border: none; */
+  /* color: #fff; */
+  width: 22rem;
   /* text-align: center; */
   /* background-color: #2D456B; */
   text-indent: 0rem;
 }
 
-.reg {
-  position: absolute;
-  top: 17.2rem;
-  right: 3.5rem;
-  /* border: none; */
-  /* color: #fff; */
-  width: 13.6rem;
-  /* text-align: center; */
-  /* background-color: #2D456B; */
-  text-indent: 0rem;
-}
-
-.wel {
+.wel{
   width: 415px;
-  height: 35px;
+  height: 315px;
   color: #2d456b;
   font-size: 1.5rem;
   position: absolute;
   top: 2rem;
-  text-align: center;
+  padding-left: 150px;
 }
-
 input {
   border-bottom: 0.0625rem solid #2d456b;
   height: 2.5625rem;
-  width: 15.8125rem;
-  text-indent: 3.125rem;
+  width: 18.8125rem;
+  text-indent: 2.125rem;
   outline: none;
   border-top-width: 0px;
   border-top-style: solid;
@@ -171,83 +222,78 @@ input {
   border-right-width: 0px;
   border-right-style: solid;
 }
-
-.user {
+.user{
   position: absolute;
   top: 6rem;
   right: 3.5rem;
   display: flex;
-}
 
-.rem {
+}
+.rem{
   position: absolute;
-  top: 12.5rem;
+  top: 15.5rem;
   right: 18.7rem;
   border: none;
   color: #323333;
 }
-
-.rem input {
+.rem input{
   width: 0.8125rem;
 }
-
-.fg {
+.fg{
   position: absolute;
-  top: 12.3rem;
+  top: 12.5rem;
   right: 3.3rem;
   border: none;
   color: #323333;
 }
-
-#yonghu {
-  border-bottom: 1px solid #2d456b;
+#yonghu{
+  border-bottom:1px solid #2D456B;
   height: 41px;
   line-height: 41px;
-}
 
-#reb {
+}
+#reb{
   margin-top: -33px;
   margin-left: 20px;
   font-size: 11px;
 }
 
-@media (min-width: 800px) and (max-width: 1200px) {
-  .bg {
+
+@media (min-width:800px) and (max-width:1200px)
+
+{
+  .bg{
     width: 355px;
     height: 300px;
   }
-
-  .wel {
+  .wel{
     width: 355px;
   }
-
-  .user {
+  .user{
     top: 5rem;
     right: 3.5rem;
   }
-
-  .password {
+  .password{
     top: 8rem;
     right: 3.5rem;
   }
+  input{
 
-  input {
     width: 12rem;
   }
-
-  .rem {
+  .rem{
     top: 11rem;
     right: 14.3rem;
   }
-
-  .fg {
+  .fg{
     top: 11rem;
     right: 3.5rem;
   }
-
-  .btn {
+  .btn{
     top: 14rem;
     width: 15rem;
   }
+
 }
+
 </style>

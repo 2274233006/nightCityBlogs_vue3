@@ -37,7 +37,20 @@ const routers = [
         name: 'login',
         component: () => import('../components/login/login.vue'),
         meta: { title: '登录'}
-    }
+    },
+    {
+        path: '/registered',
+        name: 'registered',
+        component: () => import('../components/login/registered.vue'),
+        meta: { title: '注册'}
+    },
+    {
+        path: '/forget',
+        name: 'forget',
+        component: () => import('../components/login/forget.vue'),
+        meta: { title: '忘记密码'}
+    },
+
 ]
 const router = createRouter({
     history: createWebHistory(),
