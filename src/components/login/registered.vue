@@ -21,7 +21,7 @@
       <div class="password">
         <div id="yonghu">密&emsp;&emsp;码</div>
         <input
-            type="password"
+            :type="inputStatus"
             name="密码"
             v-model="password"
             @keyup.enter=""
@@ -35,7 +35,7 @@
             trigger="click"
             content="请确保与先前输入一致">
           <template #reference>
-            <input type="password" name="密码" v-model="notarizePassword"/>
+            <input :type="inputStatus" name="密码" v-model="notarizePassword"/>
           </template>
         </el-popover>
       </div>
@@ -47,12 +47,16 @@
             trigger="click"
             content="确保邮箱地址格式正确且可用">
           <template #reference>
-            <input type="password" name="密码" v-model="email"/>
+            <input type="text" name="密码" v-model="email" />
           </template>
         </el-popover>
       </div>
       <div class="button">
-        <el-button>获取验证码</el-button>
+        <el-button>get验证码</el-button>
+      </div>
+      <div class="rem">
+        <el-icon v-if="rem" @click="remStatus"><Lock /></el-icon>
+        <el-icon v-if="!rem" @click="remStatus"><Unlock /></el-icon>
       </div>
       <div class="emailAuthCode" >
         <div id="yonghu" >邮箱验证</div>
@@ -62,7 +66,7 @@
             trigger="click"
             content="或者应该可能发你邮箱啦">
           <template #reference>
-            <input type="password" name="验证码" v-model="verification"/>
+            <input type="text" name="验证码" v-model="verification"/>
           </template>
         </el-popover>
       </div>
@@ -90,6 +94,8 @@ export default {
       notarizePassword:"",//确认密码
       email:"",
       verification:"",//验证码
+      rem:true,
+      inputStatus:"password"
 
     };
   },
@@ -100,11 +106,20 @@ export default {
     },
     registered(){
       this.$router.push("/registered")
-    }
+    },
+    remStatus(){
+      if(this.rem){
+        this.rem = false
+        this.inputStatus ="text"
+      }else {
+        this.rem = true
+        this.inputStatus ="password"
+      }
+    },
   },
   mounted() {
     localStorage.setItem('conceal',false)
-    store.dispatch('init')
+    store.dispatch('initConst')
   }
 };
 
@@ -183,7 +198,7 @@ export default {
   right: 3.5rem;
   /* border: none; */
   /* color: #fff; */
-  width: 23.5rem;
+  width: 25.5rem;
   /* text-align: center; */
   /* background-color: #2D456B; */
   text-indent: 0rem;
@@ -191,7 +206,7 @@ export default {
 .reg{
   position: absolute;
   top: 25.7rem;
-  right: -3rem;
+  right: -2rem;
   /* border: none; */
   /* color: #fff; */
   width: 22rem;
@@ -212,8 +227,8 @@ export default {
 input {
   border-bottom: 0.0625rem solid #2d456b;
   height: 2.5625rem;
-  width: 18.8125rem;
-  text-indent: 2.125rem;
+  width: 20.8125rem;
+  text-indent: 1rem;
   outline: none;
   border-top-width: 0px;
   border-top-style: solid;
@@ -229,10 +244,10 @@ input {
   display: flex;
 
 }
-.rem{
+.rem {
   position: absolute;
-  top: 15.5rem;
-  right: 18.7rem;
+  top: 10.5rem;
+  right: 3.7rem;
   border: none;
   color: #323333;
 }

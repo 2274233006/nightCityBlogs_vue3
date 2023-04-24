@@ -31,7 +31,6 @@
           </template>
         </el-popover>
       </div>
-
       <div class="verification">
         <div id="yonghu">验&nbsp;&nbsp;证&nbsp;&nbsp;码</div>
         <el-popover
@@ -44,7 +43,6 @@
           </template>
         </el-popover>
       </div>
-
       <div class="password" >
         <div id="yonghu">新&nbsp;&nbsp;密&nbsp;&nbsp;码</div>
         <el-popover
@@ -53,12 +51,16 @@
             trigger="click"
             content="8~16位数字或字母，区分大小写，不允许汉字哦，这次可别忘了">
           <template #reference>
-            <input type="password" name="密码" v-model="newPassword"/>
+            <input :type="inputStatus" name="密码" v-model="newPassword"/>
           </template>
         </el-popover>
       </div>
+      <div class="rem">
+        <el-icon v-if="rem" @click="remStatus"><Lock /></el-icon>
+        <el-icon v-if="!rem" @click="remStatus"><Unlock /></el-icon>
+      </div>
       <div class="button">
-        <el-button>获取验证码</el-button>
+        <el-button>get验证码</el-button>
       </div>
       <el-button class="btn" type="primary">
         找回
@@ -80,7 +82,9 @@ export default {
       username: "",//用户名
       newPassword: "",//新密码
       verification:"",//验证码
-      email:""//邮箱
+      email:"",//邮箱
+      rem:true,
+      inputStatus:"password"
     };
   },
   methods: {
@@ -88,10 +92,19 @@ export default {
     login() {
       this.$router.push("/login");
     },
+    remStatus(){
+      if(this.rem){
+        this.rem = false
+        this.inputStatus ="text"
+      }else {
+        this.rem = true
+        this.inputStatus ="password"
+      }
+    },
   },
   mounted() {
     localStorage.setItem('conceal',false)
-    store.dispatch('init')
+    store.dispatch('initConst')
   }
 };
 </script>
@@ -161,13 +174,13 @@ export default {
   position: absolute;
   top: 19.5rem;
   right: 3.5rem;
-  width: 23.5rem;
+  width: 25.5rem;
   text-indent: 0rem;
 }
 .reg{
   position: absolute;
   top: 21.825rem;
-  right: -3rem;
+  right: -2rem;
   width: 21.5rem;
   text-indent: 0rem;
 }
@@ -184,8 +197,8 @@ export default {
 input {
   border-bottom: 0.0625rem solid #2d456b;
   height: 2.5625rem;
-  width: 18.8125rem;
-  text-indent: 2.125rem;
+  width: 20.8125rem;
+  text-indent: 1rem;
   outline: none;
   border-top-width: 0px;
   border-top-style: solid;
@@ -200,6 +213,13 @@ input {
   right: 3.5rem;
   display: flex;
 
+}
+.rem {
+  position: absolute;
+  top: 16.8rem;
+  right: 3.7rem;
+  border: none;
+  color: #323333;
 }
 .rem input{
   width: 0.8125rem;

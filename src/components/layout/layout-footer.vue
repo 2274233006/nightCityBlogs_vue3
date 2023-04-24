@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -36,7 +37,7 @@ export default {
   },
   methods: {
     getSocials() {
-      this.$axios.get('http://localhost:3000/socials', {}).then((res) => {
+      axios.get('http://localhost:3000/socials', {}).then((res) => {
         this.socials = res.data
       })
     }

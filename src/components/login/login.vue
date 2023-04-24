@@ -22,7 +22,7 @@
       <div class="password">
         <div id="yonghu">密&emsp;&emsp;码</div>
         <input
-            type="password"
+            :type="inputStatus"
             name="密码"
             v-model="password"/>
       </div>
@@ -30,6 +30,10 @@
         <div style="font-size: 12px; margin-top: 11px">
           <el-link @click="forget">忘记密码</el-link>
         </div>
+      </div>
+      <div class="rem">
+        <el-icon v-if="rem" @click="remStatus"><Lock /></el-icon>
+        <el-icon v-if="!rem" @click="remStatus"><Unlock /></el-icon>
       </div>
       <el-button class="btn" type="primary" @click="login">
         登录
@@ -39,23 +43,47 @@
       </div>
     </div>
   </div>
-
 </template>
+
+
+
 
 <script>
 import store from "@/state";
-
+import {mapState} from "vuex";
 export default {
   data() {
     return {
       username: "",
       password: "",
+      rem:true,
+      inputStatus:"password"
     };
   },
+  computed:{
+    ...mapState(['userItem']),
+  },
   methods: {
-    //登录跳转
-    login() {
-      this.$router.push("/");
+    remStatus(){
+      if(this.rem){
+        this.rem = false
+        this.inputStatus ="text"
+      }else {
+        this.rem = true
+        this.inputStatus ="password"
+      }
+    },
+    //登录
+    async login() {
+      if(this.username == ""){
+        layer.msg('用户名不能为空',{icon:2,time:1000})
+        return
+      }else if(this.password == ""){
+        layer.msg('密码不能为空',{icon:2,time:1000})
+      }
+      else{
+        await this.loginCheck();
+      }
     },
     //注册
     registered() {
@@ -65,11 +93,59 @@ export default {
     forget() {
       this.$router.push("/forget")
     },
+    //登录
+    async loginCheck(){
+      await this.$axios.post('user/login',{
+        username:this.username,
+        password:this.password
+      }).then((res)=>{
+
+        if(res.data.code === 200) {
+          // localStorage中需要存储json
+          const userItem = JSON.stringify(res.data.data)
+          localStorage.setItem('userItem', userItem)
+          localStorage.setItem('loginStatus',true)
+          // 执行store的actions更新state中的属性
+          store.dispatch('initUserItem');
+          store.dispatch('initLoginStatus');
+          layer.load();
+          setTimeout(()=>{
+            layer.closeAll('loading');
+            this.$router.push('/')
+            layer.msg('登录成功！',{icon:1,time:2000})
+          },1000)
+        }else{
+          layer.load();
+          setTimeout(()=>{
+            layer.closeAll('loading');
+            layer.msg('登录失败！'+" "+res.data.msg,{icon:2,time:2000})
+          },1000)
+        }
+      }).catch(function (error) {
+        if (error.response) {
+          // 请求成功发出且服务器也响应了状态码，但状态代码超出了 2xx 的范围
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+          layer.msg("请求出错！ "+error.message,{icon:2,time:2000})
+        } else if (error.request) {
+          // 请求已经成功发起，但没有收到响应
+          // `error.request` 在浏览器中是 XMLHttpRequest 的实例，
+          // 而在node.js中是 http.ClientRequest 的实例
+          console.log(error.message);
+          layer.msg("请求出错！ "+error.message,{icon:2,time:2000})
+        } else {
+          // 发送请求时出了点问题
+          console.log('Error', error.message);
+          layer.msg("请求出错！ "+error.message,{icon:2,time:2000})
+        }
+      });
+    }
   },
   mounted() {
     localStorage.setItem('conceal', false)
-    store.dispatch('init')
-  }
+    store.dispatch('initConceal')
+  },
 };
 </script>
 
@@ -85,7 +161,6 @@ export default {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-
 }
 
 body {
@@ -123,7 +198,6 @@ body {
   right: 3.5rem;
   display: flex;
 }
-
 .btn {
   position: absolute;
   top: 14.6rem;
@@ -139,7 +213,7 @@ body {
 .reg {
   position: absolute;
   top: 17.2rem;
-  right: 3.5rem;
+  right: 3.6rem;
   /* border: none; */
   /* color: #fff; */
   width: 13.6rem;
@@ -162,7 +236,7 @@ input {
   border-bottom: 0.0625rem solid #2d456b;
   height: 2.5625rem;
   width: 15.8125rem;
-  text-indent: 3.125rem;
+  text-indent: 1rem;
   outline: none;
   border-top-width: 0px;
   border-top-style: solid;
@@ -181,8 +255,8 @@ input {
 
 .rem {
   position: absolute;
-  top: 12.5rem;
-  right: 18.7rem;
+  top: 10.5rem;
+  right: 3.7rem;
   border: none;
   color: #323333;
 }

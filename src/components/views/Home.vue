@@ -43,7 +43,6 @@
       </main>
     </div>
 
-
   </div>
 </template>
 
@@ -77,7 +76,7 @@ export default {
     this.getFeatures();
     this.getPostList();
     localStorage.setItem('conceal',true)
-    store.dispatch('init')
+    store.dispatch('initConceal')
   },
   computed: {
     classify() {

@@ -29,14 +29,19 @@
       <div class="menu-item">
         <router-link to="/about">关于</router-link>
       </div>
-      <div class="menu-item">
-        <router-link to="/login">登录</router-link>
+      <div class="menu-item" v-if="!loginStatus">
+        <router-link to="/login" >登录</router-link>
+      </div>
+      <div class="menu-item" v-if="loginStatus">
+        <router-link to="/user" >user</router-link>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
@@ -45,6 +50,11 @@ export default {
       hidden: false,
       category: [],
       mobileShow: false
+    }
+  },
+  computed:{
+    loginStatus(){
+      return this.$store.state.loginStatus
     }
   },
   mounted() {
@@ -70,7 +80,7 @@ export default {
     },
 
     getCategory() {
-      this.$axios.get('http://localhost:3000/category', {
+      axios.get('http://localhost:3000/category', {
       }).then((res) => {
         this.category = res.data
       })
