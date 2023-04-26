@@ -32,8 +32,8 @@
         </div>
       </div>
       <div class="rem">
-        <el-icon v-if="rem" @click="remStatus"><Lock /></el-icon>
-        <el-icon v-if="!rem" @click="remStatus"><Unlock /></el-icon>
+        <el-icon v-if="!rem" @click="remStatus"><View /></el-icon>
+        <el-icon v-if="rem" @click="remStatus"><Hide /></el-icon>
       </div>
       <el-button class="btn" type="primary" @click="login">
         登录
@@ -99,45 +99,55 @@ export default {
         username:this.username,
         password:this.password
       }).then((res)=>{
-
+        layer.load();
         if(res.data.code === 200) {
           // localStorage中需要存储json
           const userItem = JSON.stringify(res.data.data)
+          localStorage.setItem('token',res.data.data.token)
+
           localStorage.setItem('userItem', userItem)
-          localStorage.setItem('loginStatus',true)
-          // 执行store的actions更新state中的属性
           store.dispatch('initUserItem');
+
+          localStorage.setItem('loginStatus',true)
           store.dispatch('initLoginStatus');
-          layer.load();
           setTimeout(()=>{
-            layer.closeAll('loading');
             this.$router.push('/')
+            layer.closeAll('loading');
             layer.msg('登录成功！',{icon:1,time:2000})
           },1000)
         }else{
-          layer.load();
           setTimeout(()=>{
             layer.closeAll('loading');
             layer.msg('登录失败！'+" "+res.data.msg,{icon:2,time:2000})
           },1000)
         }
       }).catch(function (error) {
+        layer.load();
         if (error.response) {
           // 请求成功发出且服务器也响应了状态码，但状态代码超出了 2xx 的范围
           console.log(error.response.data);
           console.log(error.response.status);
           console.log(error.response.headers);
-          layer.msg("请求出错！ "+error.message,{icon:2,time:2000})
+          setTimeout(()=>{
+            layer.closeAll('loading');
+            layer.msg("请求出错！ "+error.message,{icon:2,time:2000})
+          },1000)
         } else if (error.request) {
           // 请求已经成功发起，但没有收到响应
           // `error.request` 在浏览器中是 XMLHttpRequest 的实例，
           // 而在node.js中是 http.ClientRequest 的实例
           console.log(error.message);
-          layer.msg("请求出错！ "+error.message,{icon:2,time:2000})
+          setTimeout(()=>{
+            layer.closeAll('loading');
+            layer.msg("请求出错！ "+error.message,{icon:2,time:2000})
+          },1000)
         } else {
           // 发送请求时出了点问题
           console.log('Error', error.message);
-          layer.msg("请求出错！ "+error.message,{icon:2,time:2000})
+          setTimeout(()=>{
+            layer.closeAll('loading');
+            layer.msg("请求出错！ "+error.message,{icon:2,time:2000})
+          },1000)
         }
       });
     }

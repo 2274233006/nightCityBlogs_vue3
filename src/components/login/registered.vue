@@ -55,8 +55,8 @@
         <el-button>get验证码</el-button>
       </div>
       <div class="rem">
-        <el-icon v-if="rem" @click="remStatus"><Lock /></el-icon>
-        <el-icon v-if="!rem" @click="remStatus"><Unlock /></el-icon>
+        <el-icon v-if="!rem" @click="remStatus"><View /></el-icon>
+        <el-icon v-if="rem" @click="remStatus"><Hide /></el-icon>
       </div>
       <div class="emailAuthCode" >
         <div id="yonghu" >邮箱验证</div>

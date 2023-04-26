@@ -75,8 +75,10 @@ export default {
   mounted() {
     this.getFeatures();
     this.getPostList();
+    this.verifyLogin()
     localStorage.setItem('conceal',true)
     store.dispatch('initConceal')
+
   },
   computed: {
     classify() {
@@ -87,6 +89,19 @@ export default {
     },
   },
   methods: {
+
+    verifyLogin(){
+      this.$axios.post('user/verify',{
+      }).then((res)=>{
+        if(!res.data){
+          localStorage.setItem('loginStatus',false)
+          store.dispatch('initLoginStatus');
+        }else{
+          localStorage.setItem('loginStatus',true)
+          store.dispatch('initLoginStatus');
+        }
+      })
+    },
     //焦点图数据
     getFeatures() {
       this.$axios.get('http://localhost:3000/features', {}).then((res) => {

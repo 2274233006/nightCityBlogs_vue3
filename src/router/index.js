@@ -47,11 +47,17 @@ const routers = [
         path: '/user',
         name: 'user',
         component: () => import('../components/userPage/index.vue'),
+        redirect:'/userItem',
         children: [
             {
-                path: '/updateUsername',
-                name: 'user',
-                component: () => import('../components/userPage/components/updateUsername.vue'),
+                path: '/updateUserItem',
+                name: 'username',
+                component: () => import('../components/userPage/components/updateUserItem.vue'),
+            },
+            {
+                path: '/userItem',
+                name: 'userItem',
+                component: () => import('../components/userPage/components/userItem.vue'),
             }
         ]
     },

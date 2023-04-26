@@ -56,8 +56,8 @@
         </el-popover>
       </div>
       <div class="rem">
-        <el-icon v-if="rem" @click="remStatus"><Lock /></el-icon>
-        <el-icon v-if="!rem" @click="remStatus"><Unlock /></el-icon>
+        <el-icon v-if="!rem" @click="remStatus"><View /></el-icon>
+        <el-icon v-if="rem" @click="remStatus"><Hide /></el-icon>
       </div>
       <div class="button">
         <el-button>get验证码</el-button>

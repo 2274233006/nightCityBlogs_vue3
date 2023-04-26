@@ -33,7 +33,7 @@
         <router-link to="/login" >登录</router-link>
       </div>
       <div class="menu-item" v-if="loginStatus">
-        <router-link to="/user" >user</router-link>
+        <router-link to="/user" >{{ username }}</router-link>
       </div>
     </div>
   </div>
@@ -55,7 +55,10 @@ export default {
   computed:{
     loginStatus(){
       return this.$store.state.loginStatus
-    }
+    },
+    username(){
+      return this.$store.state.userItem.username
+    },
   },
   mounted() {
     this.getCategory()
