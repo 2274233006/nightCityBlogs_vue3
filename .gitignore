@@ -19,6 +19,7 @@ coverage
 /node_modules/
 /.idea/
 /.vscode/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
