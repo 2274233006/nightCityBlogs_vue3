@@ -18,8 +18,14 @@
             修改信息
           </el-menu-item>
 
-          <el-menu-item index="3">修改头像</el-menu-item>
-          <el-menu-item index="4">修改邮箱</el-menu-item>
+          <el-menu-item index="3"
+                        @click="this.$router.push('/updateHeader')">
+            修改头像
+          </el-menu-item>
+          <el-menu-item index="4"
+                        @click="this.$router.push('/updateEmail')">
+            修改邮箱
+          </el-menu-item>
           <el-menu-item index="5">修改密码</el-menu-item>
           <el-menu-item index="6">注销账号</el-menu-item>
           <el-button type="danger" icon="CloseBold" @click="logOut">退出登录</el-button>

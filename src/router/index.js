@@ -58,6 +58,16 @@ const routers = [
                 path: '/userItem',
                 name: 'userItem',
                 component: () => import('../components/userPage/components/userItem.vue'),
+            },
+            {
+                path: '/updateHeader',
+                name: 'updateHeader',
+                component: () => import('../components/userPage/components/updateHeader.vue'),
+            },
+            {
+                path: '/updateEmail',
+                name: 'updateEmail',
+                component: () => import('../components/userPage/components/updateEmail.vue'),
             }
         ]
     },
