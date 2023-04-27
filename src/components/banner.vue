@@ -6,7 +6,9 @@
         <div class="focusinfo">
           <!-- 头像 -->
           <div class="header-tou">
-            <router-link to="/"><img :src="websiteInfo.avatar"></router-link>
+            <router-link to="/">
+              <img :src="websiteInfo.avatar">
+            </router-link>
           </div>
           <!-- 简介 -->
           <div class="header-info">
@@ -33,8 +35,8 @@ export default {
   data() {
     return {
       websiteInfo: {
-        avatar: 'https://s2.ax1x.com/2020/01/17/1SCadg.png',
-        slogan: '嗨嗨嗨',
+        avatar: 'http://101.34.45.254:8090/logo.jpg',
+        slogan: '在世间 本就是各人下雪 各人有各人的隐晦和皎洁 ',
         name: 'FZY′blog',
         domain: 'https://www.fengziy.cn',
         notice: '本博客的Demo数据由Mockjs生成',
@@ -75,7 +77,7 @@ export default {
   props: {
     src: {
       type: String,
-      default: 'https://s1.ax1x.com/2020/05/23/YxaLMq.jpg'
+        default: 'http://101.34.45.254:8090/Background%20.jpeg'
     },
     isHome: {
       type: [Boolean, String],

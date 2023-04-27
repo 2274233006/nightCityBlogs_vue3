@@ -2,7 +2,7 @@
   <div class="useritem">
     <el-col :span="40" class="show">
       <el-card shadow="hover">
-        <el-avatar shape="square" :size="150" :src="url" class="avetar"/>
+        <el-avatar shape="square" :size="150" :src="userItem.headPortrait" class="avetar"/>
         <el-descriptions title="个人信息" size="large" direction="horizontal" :column=2 class="desc">
           <el-descriptions-item label="用户名" align="center" label-align="center">{{ userItem.username }}
           </el-descriptions-item>
@@ -25,7 +25,6 @@ export default {
   name: "userItem",
   data() {
     return {
-      url: "../../../../public/logo.jpg"
     }
   },
   computed: {

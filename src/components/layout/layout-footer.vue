@@ -36,13 +36,14 @@ export default {
     this.getSocials()
   },
   methods: {
+    //获取图标数据
     getSocials() {
-      axios.get('http://localhost:3000/socials', {}).then((res) => {
+      axios.get('http://localhost:3000/socials', {
+      }).then((res) => {
         this.socials = res.data
       })
     }
   }
-
 }
 </script>
 

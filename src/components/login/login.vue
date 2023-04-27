@@ -15,7 +15,7 @@
             content="请注意区分大小写"
         >
           <template #reference>
-            <input class="m-2" type="text" name="用户" v-model="username"/>
+            <input class="m-2" type="text" name="用户" v-model="username" @keyup.enter.native="login"/>
           </template>
         </el-popover>
       </div>
@@ -24,7 +24,7 @@
         <input
             :type="inputStatus"
             name="密码"
-            v-model="password"/>
+            v-model="password" @keyup.enter.native="login"/>
       </div>
       <div class="fg">
         <div style="font-size: 12px; margin-top: 11px">
@@ -40,6 +40,9 @@
       </el-button>
       <div class="reg">
         <el-link @click="registered">没账号还不注册</el-link>
+      </div>
+      <div class="reg2">
+        <el-link @click="this.$router.push('/')">不登录只想浏览</el-link>
       </div>
     </div>
   </div>
@@ -223,7 +226,7 @@ body {
 .reg {
   position: absolute;
   top: 17.2rem;
-  right: 3.6rem;
+  right: 10.3rem;
   /* border: none; */
   /* color: #fff; */
   width: 13.6rem;
@@ -231,7 +234,17 @@ body {
   /* background-color: #2D456B; */
   text-indent: 0rem;
 }
-
+.reg2 {
+  position: absolute;
+  top: 17.2rem;
+  right: -2.6rem;
+  /* border: none; */
+  /* color: #fff; */
+  width: 13.6rem;
+  /* text-align: center; */
+  /* background-color: #2D456B; */
+  text-indent: 0rem;
+}
 .wel {
   width: 415px;
   height: 35px;

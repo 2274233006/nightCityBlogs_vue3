@@ -6,7 +6,7 @@
     <el-container>
       <el-aside class="header" width="120px">
         <el-menu class="user_menu">
-          <el-button type="primary" icon="ArrowLeft">返回首页</el-button>
+          <el-button type="primary" icon="ArrowLeft" @click="this.$router.push('/')">返回首页</el-button>
 
           <el-menu-item index="1"
                         @click="this.$router.push('/userItem')">
@@ -42,11 +42,24 @@ export default {
   mounted() {
     localStorage.setItem('conceal', false)
     store.dispatch('initConceal')
+    this.verifyLogin()
   },
   methods: {
+    verifyLogin(){
+      this.$axios.post('user/verify',{
+      }).then((res)=>{
+        if(!res.data){
+          layer.msg("token验证未通过，请重新登录",{icon:2,time:2000})
+          setTimeout(()=>{
+            this.$router.push('/login')
+          },2000)
+        }
+      })
+    },
     logOut() {
       localStorage.setItem('loginStatus', false)
       store.dispatch('initLoginStatus')
+      localStorage.removeItem('userItem')
       this.$axios.post('user/logout', {}).then((res) => {
         if (res.data.code === 200) {
           layer.msg(res.data.msg, {icon: 1, time: 1000})

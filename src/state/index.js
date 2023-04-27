@@ -6,7 +6,6 @@ const store = createStore({
             conceal: localStorage.getItem('conceal') === 'true',
             userItem:JSON.parse(localStorage.getItem('userItem')),
             loginStatus:localStorage.getItem('loginStatus') === 'true'
-
         }
     },
     mutations: {

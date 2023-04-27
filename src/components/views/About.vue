@@ -9,7 +9,7 @@
                       <p>非常感谢<a target="_blank" href="https://gitee.com/fengziy" style="color: #ff6d6d;">fengziy</a>的开源支持</p>
                         <p><a target="_blank" href="https://gitee.com/fengziy/Gblog" style="color: #ff6d6d;">Gitee仓库</a> | <a target="_blank" href="https://github.com/fengziye/Gblog" style="color: #ff6d6d;">Github仓库</a></p>
                         <br>
-                      <p>基于这个模板做了一定修改，加入了登录注册、用户主页、后台管理等一些基础功能，后台使用springBoot搭建, 因为项目上线所以后端代码暂未开源</p>
+                      <p>基于这个模板做了一定修改，加入了登录注册、用户主页、后台管理等一些基础功能，集成了一言API，后台使用springBoot搭建, 因为项目上线所以后端代码暂未开源</p>
                     </div>
                 </div>
                 <div class="about-me about-info">

@@ -1,18 +1,20 @@
 <template>
   <div id="layout-header" :class="{'fixed':fixed,'hidden':hidden}" @click.stop="mobileShow=false">
-<!--    logo-->
+    <!--logo-->
     <div class="site-logo">
       <img src="@/assets/site-logo.svg" alt="">
       <p class="site-name">nightCityBlogs</p>
     </div>
-
     <div class="menus-btn" @click.stop="mobileShow=!mobileShow">
     </div>
+
+    <!--导航栏-->
     <div class="site-menus" :class="{'mobileShow':mobileShow}" @click.stop="mobileShow=!mobileShow">
-<!--      导航栏-->
+
       <div class="menu-item">
         <router-link to="/">首页</router-link>
       </div>
+
       <div class="menu-item hasChild">
         <a href="#">文章</a>
         <div class="childMenu" v-if="category.length">
@@ -23,17 +25,24 @@
           </div>
         </div>
       </div>
+
       <div class="menu-item">
         <router-link to="/friend">友链</router-link>
       </div>
+
       <div class="menu-item">
         <router-link to="/about">关于</router-link>
       </div>
+
       <div class="menu-item" v-if="!loginStatus">
         <router-link to="/login" >登录</router-link>
       </div>
+
       <div class="menu-item" v-if="loginStatus">
         <router-link to="/user" >{{ username }}</router-link>
+      </div>
+      <div class="menu-item" v-if="role">
+        <router-link to="/user" >admin</router-link>
       </div>
     </div>
   </div>
@@ -41,7 +50,6 @@
 
 <script>
 import axios from "axios";
-
 export default {
   data() {
     return {
@@ -49,7 +57,8 @@ export default {
       fixed: false,
       hidden: false,
       category: [],
-      mobileShow: false
+      mobileShow: false,
+      role:false
     }
   },
   computed:{
@@ -62,6 +71,7 @@ export default {
   },
   mounted() {
     this.getCategory()
+    this.getRole()
     window.addEventListener('scroll', this.watchScroll)
   },
   beforeDestroy() {
@@ -87,8 +97,15 @@ export default {
       }).then((res) => {
         this.category = res.data
       })
+    },
+    getRole() {
+      this.$axios.post('user/role',{
+      }).then((res)=>{
+          this.role = res.data.data === "admin"
+      })
     }
-  }
+  },
+
 }
 </script>
 

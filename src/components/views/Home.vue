@@ -81,15 +81,17 @@ export default {
 
   },
   computed: {
+    // 获取当前文章分类
     classify() {
       return this.$route.params.classification
     },
+    //用于判断是否显示相应区域
     classifyBoolean() {
       return this.$route.params.classification == undefined
     },
   },
   methods: {
-
+    // token校验
     verifyLogin(){
       this.$axios.post('user/verify',{
       }).then((res)=>{
@@ -100,8 +102,13 @@ export default {
           localStorage.setItem('loginStatus',true)
           store.dispatch('initLoginStatus');
         }
+      }).catch((error)=>{
+        localStorage.setItem('loginStatus',false)
+        store.dispatch('initLoginStatus');
+          layer.msg(error.message,{icon:2,time:2000})
       })
     },
+
     //焦点图数据
     getFeatures() {
       this.$axios.get('http://localhost:3000/features', {}).then((res) => {
