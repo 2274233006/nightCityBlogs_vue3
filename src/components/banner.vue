@@ -35,7 +35,7 @@ export default {
   data() {
     return {
       websiteInfo: {
-        avatar: 'http://101.34.45.254:8090/logo.jpg',
+        avatar: 'https://nightcityblogs-1312951467.cos.ap-shanghai.myqcloud.com/logo.jpg',
         slogan: '在世间 本就是各人下雪 各人有各人的隐晦和皎洁 ',
         name: 'FZY′blog',
         domain: 'https://www.fengziy.cn',
@@ -77,7 +77,7 @@ export default {
   props: {
     src: {
       type: String,
-        default: 'http://101.34.45.254:8090/Background%20.jpeg'
+        default: 'https://nightcityblogs-1312951467.cos.ap-shanghai.myqcloud.com/nightCity.jpg'
     },
     isHome: {
       type: [Boolean, String],

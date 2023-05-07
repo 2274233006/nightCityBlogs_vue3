@@ -52,26 +52,26 @@
         </el-popover>
       </div>
       <div class="button">
-        <el-button>get验证码</el-button>
+        <el-button @click="verification">get验证码</el-button>
       </div>
       <div class="rem">
         <el-icon v-if="!rem" @click="remStatus"><View /></el-icon>
         <el-icon v-if="rem" @click="remStatus"><Hide /></el-icon>
       </div>
       <div class="emailAuthCode" >
-        <div id="yonghu" >邮箱验证</div>
+        <div id="yonghu">邮箱验证</div>
         <el-popover
             placement="top-start"
             :width="250"
             trigger="click"
             content="或者应该可能发你邮箱啦">
           <template #reference>
-            <input type="text" name="验证码" v-model="verification"/>
+            <input type="text" name="验证码" v-model="authCode"/>
           </template>
         </el-popover>
       </div>
       <!-- 通过v-model绑定rem传递Boolean值判定是否记忆 -->
-      <el-button class="btn" type="primary">
+      <el-button class="btn" type="primary" @click="register">
         注册
       </el-button>
       <div class="reg">
@@ -93,7 +93,7 @@ export default {
       password: "",
       notarizePassword:"",//确认密码
       email:"",
-      verification:"",//验证码
+      authCode:"",//验证码
       rem:true,
       inputStatus:"password"
 
@@ -116,6 +116,61 @@ export default {
         this.inputStatus ="password"
       }
     },
+    verification(){
+      layer.load()
+      this.$axios.post('mail/sendTextMail/'+this.email,{
+      }).then((res)=>{
+        if(res.data.code === 200)
+          layer.closeAll("loading")
+          layer.msg(res.data.msg,{icon:1,time:2000})
+      }).catch(function (error) {
+        layer.load();
+        if (error.response) {
+          // 请求成功发出且服务器也响应了状态码，但状态代码超出了 2xx 的范围
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+          setTimeout(()=>{
+            layer.closeAll('loading');
+            layer.msg("请求出错！ "+error.message,{icon:2,time:2000})
+          },1000)
+        } else if (error.request) {
+          // 请求已经成功发起，但没有收到响应
+          // `error.request` 在浏览器中是 XMLHttpRequest 的实例，
+          // 而在node.js中是 http.ClientRequest 的实例
+          console.log(error.message);
+          setTimeout(()=>{
+            layer.closeAll('loading');
+            layer.msg("请求出错！ "+error.message,{icon:2,time:2000})
+          },1000)
+        } else {
+
+          // 发送请求时出了点问题
+          console.log('Error', error.message);
+          setTimeout(()=>{
+            layer.closeAll('loading');
+            layer.msg("请求出错！ "+error.message,{icon:2,time:2000})
+          },1000)
+        }
+      });
+    },
+    register(){
+      layer.load()
+      this.$axios.put('user/register',{
+        username:this.username,
+        password:this.password,
+        emailAddress:this.email,
+        authCode:this.authCode
+      }).then((res)=>{
+        if(res.data.code === 200){
+          layer.closeAll("loading")
+          layer.msg(res.data.msg,{icon:1,time:2000})
+        }else{
+          layer.closeAll("loading")
+          layer.msg(res.data.msg,{icon:2,time:2000})
+        }
+      })
+    }
   },
   mounted() {
     localStorage.setItem('conceal',false)

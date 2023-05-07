@@ -58,7 +58,7 @@ export default {
         layer.msg('城市不能为空',{icon:2,time:2000})
         return
       }
-      this.$axios.put('user/updateItem',{
+      this.$axios.put('update/Item',{
         username:this.username,
         address:this.codeToText
       }).then((res)=>{
