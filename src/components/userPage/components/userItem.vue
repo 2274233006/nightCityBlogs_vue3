@@ -2,10 +2,11 @@
   <div class="useritem">
     <el-col :span="40" class="show">
       <el-card shadow="hover">
-        <el-avatar shape="square" :size="150" :src="userItem.headPortrait" class="avetar"/>
+        <el-avatar  :size="170" :src="userItem.headPortrait" class="avetar"/>
         <el-descriptions title="个人信息" size="large" direction="horizontal" :column=2 class="desc">
           <el-descriptions-item label="用户名" align="center" label-align="center">{{ userItem.username }}
           </el-descriptions-item>
+
           <el-descriptions-item label="邮箱" align="center" label-align="center">
             {{userItem.emailAddress}}
           </el-descriptions-item>

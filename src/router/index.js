@@ -73,6 +73,11 @@ const routers = [
                 path: '/updatePassword',
                 name: 'updatePassword',
                 component: () => import('../components/userPage/components/updatePassword.vue'),
+            },
+            {
+                path: '/unsubscribe',
+                name: 'unsubscribe',
+                component: () => import('../components/userPage/components/unsubscribe.vue'),
             }
         ]
     },

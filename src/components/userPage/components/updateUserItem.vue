@@ -1,7 +1,7 @@
 <template>
     <el-col class="show">
       <el-card shadow="hover">
-        <el-avatar shape="square" :size="150" :src="userItem.headPortrait" class="avetar"/>
+        <el-avatar  :size="170" :src="userItem.headPortrait" class="avetar"/>
         <br><br>
         <el-row :gutter="20">
           <el-col :span="6"><div class="grid-content ep-bg-purple" />
@@ -14,6 +14,7 @@
           <el-col :span="6"><div class="grid-content ep-bg-purple" />
             <el-input placeholder="邮箱" disabled v-model="userItem.emailAddress"></el-input>
           </el-col>
+
           <el-col :span="6"><div class="grid-content ep-bg-purple" />
             <el-input placeholder="权限" disabled v-model="userItem.role"></el-input>
           </el-col>

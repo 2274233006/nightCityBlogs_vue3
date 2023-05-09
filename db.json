@@ -51,11 +51,12 @@
       "href": "/category/live"
     }
   ],
+
   "features": [
     {
       "id": 1,
       "title": "Akina",
-      "img": "https://s1.ax1x.com/2020/05/14/YDfRnU.jpg"
+      "img":"https://tse1-mm.cn.bing.net/th/id/OIP-C.mH9YLFEL5YdVxJM82mjVJQHaEo?pid=ImgDet&rs=1"
     },
     {
       "id": 2,
@@ -68,11 +69,12 @@
       "img": "https://s1.ax1x.com/2020/05/14/YDfT91.jpg"
     }
   ],
+
   "postList": [
     {
       "id": 0,
       "isTop": true,
-      "banner": "https://tse1-mm.cn.bing.net/th/id/OIP-C.mH9YLFEL5YdVxJM82mjVJQHaEo?pid=ImgDet&rs=1",
+      "banner": "https://s1.ax1x.com/2020/05/14/YDfRnU.jpg",
       "isHot": true,
       "pubTime": "1111:!1",
       "title": "JAVA",

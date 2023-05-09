@@ -26,8 +26,14 @@
                         @click="this.$router.push('/updateEmail')">
             修改邮箱
           </el-menu-item>
-          <el-menu-item index="5" @click="this.$router.push('/updatePassword')">修改密码</el-menu-item>
-          <el-menu-item index="6">注销账号</el-menu-item>
+          <el-menu-item index="5"
+                        @click="this.$router.push('/updatePassword')">
+            修改密码
+          </el-menu-item>
+          <el-menu-item index="6"
+                        @click="this.$router.push('/unsubscribe')">
+            注销账号
+          </el-menu-item>
           <el-button type="danger" icon="CloseBold" @click="logOut">退出登录</el-button>
         </el-menu>
       </el-aside>

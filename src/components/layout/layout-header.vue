@@ -2,7 +2,8 @@
   <div id="layout-header" :class="{'fixed':fixed,'hidden':hidden}" @click.stop="mobileShow=false">
     <!--logo-->
     <div class="site-logo">
-      <img src="@/assets/site-logo.svg" alt="">
+      <img src="@/assets/logo.png" alt="">
+      <br>
       <p class="site-name">nightCityBlogs</p>
     </div>
     <div class="menus-btn" @click.stop="mobileShow=!mobileShow">
