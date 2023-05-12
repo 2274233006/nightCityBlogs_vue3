@@ -32,26 +32,21 @@
   "category": [
     {
       "id": 1,
-      "title": "JAVA",
-      "href": "/category/java"
+      "title": "java"
     },
     {
       "id": 2,
-      "title": "SpringBoot",
-      "href": "/category/SpringBoot"
+      "title": "SpringBoot"
     },
     {
       "id": 3,
-      "title": "MySql",
-      "href": "/category/MySql"
+      "title": "mysql"
     },
     {
       "id": 4,
-      "title": "随笔",
-      "href": "/category/live"
+      "title": "随笔"
     }
   ],
-
   "features": [
     {
       "id": 1,

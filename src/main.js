@@ -19,19 +19,20 @@ import VueMarkdownEditor from '@kangc/v-md-editor';
 import '@kangc/v-md-editor/lib/style/base-editor.css';
 import githubTheme from '@kangc/v-md-editor/lib/theme/github.js';
 import '@kangc/v-md-editor/lib/theme/style/github.css';
-
 // highlight.js
 import hljs from 'highlight.js';
-
-// html预览
-import VMdPreviewHtml from '@kangc/v-md-editor/lib/preview-html';
-import '@kangc/v-md-editor/lib/style/preview-html.css';
+// 预览
+import VMdPreview from '@kangc/v-md-editor/lib/preview';
+import '@kangc/v-md-editor/lib/style/preview.css';
 
 //vuex
 import store from "@/state";
 
 //编辑主题
 VueMarkdownEditor.use(githubTheme, {
+    Hljs: hljs,
+});
+VMdPreview.use(githubTheme, {
     Hljs: hljs,
 });
 
@@ -52,7 +53,7 @@ app.use(router)
 app.component(layer)
 
 // 启用markdown支持
-app.use(VMdPreviewHtml)
+app.use(VMdPreview)
 app.use(VueMarkdownEditor)
 
 // 启用element-plus

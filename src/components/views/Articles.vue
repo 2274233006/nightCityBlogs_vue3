@@ -3,31 +3,30 @@
     <banner></banner>
     <div class="site-content animate">
       <!-- 文章目录 -->
-<!--      <div id="article-menus">-->
-<!--        <menu-tree :menus="menus" child-label="child"></menu-tree>-->
-<!--      </div>-->
+
       <main class="site-main">
         <article class="hentry">
           <!-- 文章头部 -->
           <header class="entry-header">
             <!-- 标题输出 -->
-            <h1 class="entry-title">看一遍闭着眼都会安装Lua了</h1>
+            <h1 class="entry-title">{{ article.title }}</h1>
             <hr>
             <div class="breadcrumbs">
-              <div id="crumbs">最后更新时间：2020年04月21日</div>
+              <div id="crumbs">最后更新时间：{{article.pubTime}}</div>
             </div>
           </header>
           <!-- 正文输出 -->
           <div class="entry-content">
-            <v-md-preview-html :html="html" preview-class="vuepress-markdown-body"></v-md-preview-html>
+            <v-md-preview :text="article.contents"></v-md-preview>
           </div>
+
           <!-- 文章底部 -->
           <section-title>
             <footer class="post-footer">
               <!-- 阅读次数 -->
               <div class="post-like">
                 <i class="iconfont iconeyes"></i>
-                <span class="count">685</span>
+                <span class="count">{{ article.viewsCount }}</span>
               </div>
 
               <div class="post-tags">
@@ -41,7 +40,10 @@
           <div class="open-message">
             <p>声明：Gblog博客|版权所有，违者必究|如未注明，均为原创|本网站采用<a
                 href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">BY-NC-SA</a>协议进行授权</p>
-            <p>转载：转载请注明原文链接 - <a href="/public">看一遍闭着眼都会安装Lua了</a></p>
+            <p>转载：转载请注明原文链接 -
+<!--              <a href="/article/{{article.id}}">{{ article.title  }}</a>-->
+               <router-link to="/">{{ article.title  }}</router-link>
+            </p>
           </div>
           <!--评论-->
           <div class="comments">
@@ -60,18 +62,30 @@ export default {
   name: 'articles',
   data() {
     return {
-      html:"<h1>1111111111</h1>",
+      markdown:"",
       showDonate: false,
+      article:{}
     }
   },
   components: {
     Banner,
     sectionTitle,
   },
+computed:{
+  id() {
+    return this.$route.params.id
+  },
+},
   methods: {
 
   },
   mounted() {
+    this.$axios.get('article/getArticle/'+this.id,{
+
+    }).then((res)=>{
+      console.log(res.data)
+      this.article = res.data.data
+    })
   },
 }
 </script>
@@ -128,6 +142,7 @@ article.hentry {
   }
 
   .entry-content {
+    width: 100%;
   }
 
   footer.post-footer {

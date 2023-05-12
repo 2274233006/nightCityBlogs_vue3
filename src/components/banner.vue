@@ -37,10 +37,6 @@ export default {
       websiteInfo: {
         avatar: 'https://nightcityblogs-1312951467.cos.ap-shanghai.myqcloud.com/logo.jpg',
         slogan: '在世间 本就是各人下雪 各人有各人的隐晦和皎洁 ',
-        name: 'FZY′blog',
-        domain: 'https://www.fengziy.cn',
-        notice: '本博客的Demo数据由Mockjs生成',
-        desc: '一个It技术的探索者'
       },
       socials: [
         {

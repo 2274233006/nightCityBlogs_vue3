@@ -24,9 +24,10 @@ const routers = [
         component: () => import('../components/views/Friend.vue'),
     },
     {
-        path: '/article',
+        path: '/article/:id',
         name: 'article',
         component: () => import('../components/views/Articles.vue'),
+        meta: {params: 'id'}
     },
     {
         path: '/login',
@@ -79,6 +80,49 @@ const routers = [
                 name: 'unsubscribe',
                 component: () => import('../components/userPage/components/unsubscribe.vue'),
             }
+        ]
+    },
+    {
+        path: '/admin',
+        name: 'admin',
+        component: () => import('../components/adminPage/index.vue'),
+        redirect:'/adminHome',
+        children: [
+            {
+                path: '/adminHome',
+                name: 'admin主页',
+                component: () => import('../components/adminPage/components/adminHome.vue'),
+            },
+            {
+                path: '/adminUser',
+                name: '用户管理',
+                component: () => import('../components/adminPage/components/adminUser.vue'),
+            },
+            {
+                path: '/webData',
+                name: '站点数据',
+                component: () => import('../components/adminPage/components/webData.vue'),
+            },
+            {
+                path: '/publishArticle',
+                name: '发布文章',
+                component: () => import('../components/adminPage/components/publishArticle.vue'),
+            },
+            {
+                path: '/articleList',
+                name: '文章列表',
+                component: () => import('../components/adminPage/components/articleList.vue'),
+            },
+            {
+                path: '/adminClassification',
+                name: '分类管理',
+                component: () => import('../components/adminPage/components/adminClassification.vue'),
+            },
+            {
+                path: '/adminComment',
+                name: '评论管理',
+                component: () => import('../components/adminPage/components/adminComment.vue'),
+            },
         ]
     },
 

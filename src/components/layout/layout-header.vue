@@ -1,10 +1,11 @@
 <template>
-  <div id="layout-header" :class="{'fixed':fixed,'hidden':hidden}" @click.stop="mobileShow=false">
+  <div id="layout-header" :class="{'fixed':fixed,'hidden':hidden}" style="
+    padding-left: 40px" @click.stop="mobileShow=false">
     <!--logo-->
     <div class="site-logo">
       <img src="@/assets/logo.png" alt="">
       <br>
-      <p class="site-name">nightCityBlogs</p>
+<!--      <p class="site-name">nightCityBlogs</p>-->
     </div>
     <div class="menus-btn" @click.stop="mobileShow=!mobileShow">
     </div>
@@ -43,7 +44,7 @@
         <router-link to="/user" >{{ username }}</router-link>
       </div>
       <div class="menu-item" v-if="role">
-        <router-link to="/user" >admin</router-link>
+        <router-link to="/admin" >admin</router-link>
       </div>
     </div>
   </div>
@@ -141,8 +142,8 @@ export default {
   text-align: center;
 
   img {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
   }
 
   p.site-name {

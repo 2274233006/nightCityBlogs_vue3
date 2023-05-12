@@ -9,17 +9,16 @@
       </div>
       <!--标题-->
       <h1 class="entry-title">
-        <router-link to='/article'>
-          <span v-if="post.isTop" style="color:#ff6d6d;font-weight:600">[置顶]</span>
+        <router-link :to="`/article/${post.id}`">
+<!--          <span v-if="post.isTop==='true'" style="color:#ff6d6d;font-weight:600">[置顶]</span>-->
           {{ post.title }}
         </router-link>
       </h1>
-
       <!--发表时间-->
       <div class="p-time">
         <i class="iconfont iconmeditor-time"></i>
         {{ post.pubTime }}
-        <i v-if="post.isHot" class="iconfont iconfire" style="margin-left: 5px;color: #ff6d6d;"></i>
+        <i v-if="post.isHot==='true'" class="iconfont iconfire" style="margin-left: 5px;color: #ff6d6d;"></i>
       </div>
       <!--简介-->
       <p class="summary">{{ post.summary }}</p>
@@ -37,8 +36,6 @@
           </div>
         </div>
       </footer>
-
-
     </div>
     <hr/>
   </article>

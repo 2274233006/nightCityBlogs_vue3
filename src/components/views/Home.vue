@@ -4,9 +4,11 @@
     <div class="site-content animate" v-if="classifyBoolean">
       {{ classify }}
       <!--通知栏-->
+
       <div class="notify">
         <quote></quote>
       </div>
+
       <!--聚焦动画-->
       <div class="top-feature">
         <section-title>
@@ -14,6 +16,7 @@
             <small-ico></small-ico>
           </div>
         </section-title>
+
         <!--焦点图-->
         <div class="feature-content">
           <div class="feature-item" v-for="item in features" :key="item.title">
@@ -21,10 +24,11 @@
           </div>
         </div>
       </div>
+
       <!--文章列表-->
       <main class="site-main">
         <section-title>推荐</section-title>
-        <div v-for="item in postList">
+        <div v-for="item in article">
           <post :post="item"></post>
         </div>
       </main>
@@ -37,7 +41,7 @@
             <span>分类"{{ classify }}" 相关文章</span>
           </div>
         </div>
-        <div v-for="item in postList">
+        <div v-for="item in categorizedItems">
           <post :post="item"></post>
         </div>
       </main>
@@ -53,7 +57,6 @@ import sectionTitle from '@/components/section-title.vue'
 import Post from '@/components/post.vue'
 import SmallIco from '@/components/small-ico.vue'
 import Quote from '@/components/quote.vue'
-import {mapMutations} from "vuex";
 import store from "@/state";
 
 export default {
@@ -61,7 +64,7 @@ export default {
   data() {
     return {
       features: [],
-      postList: [],
+      article:[]
     }
   },
   components: {
@@ -74,7 +77,7 @@ export default {
   },
   mounted() {
     this.getFeatures();
-    this.getPostList();
+    this.getArticle();
     this.verifyLogin()
     localStorage.setItem('conceal',true)
     store.dispatch('initConceal')
@@ -87,7 +90,16 @@ export default {
     },
     //用于判断是否显示相应区域
     classifyBoolean() {
-      return this.$route.params.classification == undefined
+      return this.$route.params.classification === undefined
+    },
+    categorizedItems() {
+      const newArticle = [];
+      for (const item of this.article) {
+        if(item.classification ===this.classify){
+          newArticle.push(item)
+        }
+      }
+      return newArticle;
     },
   },
   methods: {
@@ -115,16 +127,19 @@ export default {
         this.features = res.data
       })
     },
-    getPostList() {
-      this.$axios.get('http://localhost:3000/postList', {}).then((res) => {
-        this.postList = res.data
-      })
-    },
     // post分类查询
     PostClassificationQuery() {
       //筛选操作在后端编写，返回处理完成之后的数据
       this.$axios.get('http://localhost:3000/postList', {}).then((res) => {
         console.log(res.data)
+      })
+    },
+    getArticle(){
+      this.$axios.get("article/all",{
+
+      }).then((res)=>{
+        console.log(res.data.data)
+        this.article = res.data.data
       })
     }
   }

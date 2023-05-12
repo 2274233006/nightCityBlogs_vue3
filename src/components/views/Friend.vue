@@ -9,10 +9,10 @@
             </section-title>
             <!---说明--->
             <div class="statement">
-                <p>首先将需要接入本博客站点，然后给我<router-link to="/about#Guestbook">留言</router-link>提供您站点的如下信息：</p>
-                    <p>站点名称：{{websiteInfo.name}}</p>
-                    <p>站点链接：{{websiteInfo.domain}}</p>
-                    <p>简短描述：{{websiteInfo.desc}}</p>
+                <p>需要接入本博客站点，请给我<router-link to="/about#Guestbook">留言</router-link>提供您站点的如下信息</p>
+                    <p>站点名称：</p>
+                    <p>站点链接：</p>
+                    <p>简短描述：</p>
                 <p>接入成功后将会以邮件的方式通知。</p>
             </div>
             <!----->

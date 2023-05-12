@@ -3,6 +3,7 @@
     <layoutHeader v-if="conceal"></layoutHeader>
     <layoutBody></layoutBody>
     <layoutFooter v-if="conceal"></layoutFooter>
+
   </div>
 </template>
 
@@ -19,6 +20,9 @@ export default {
   },
   computed:{
     ...mapState(['conceal'])
+  },
+  methods:{
+
   }
 }
 </script>
