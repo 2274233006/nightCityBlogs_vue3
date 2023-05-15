@@ -99,6 +99,11 @@ const routers = [
                 component: () => import('../components/adminPage/components/adminUser.vue'),
             },
             {
+                path: '/adminUserItem',
+                name: '用户信息',
+                component: () => import('../components/adminPage/components/adminUserItem.vue'),
+            },
+            {
                 path: '/webData',
                 name: '站点数据',
                 component: () => import('../components/adminPage/components/webData.vue'),
@@ -112,6 +117,11 @@ const routers = [
                 path: '/articleList',
                 name: '文章列表',
                 component: () => import('../components/adminPage/components/articleList.vue'),
+            },
+            {
+                path: '/articleListItem',
+                name: '文章修改',
+                component: () => import('../components/adminPage/components/articleListItem.vue'),
             },
             {
                 path: '/adminClassification',

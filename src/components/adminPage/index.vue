@@ -1,6 +1,6 @@
 <template>
   <div class="common-layout">
-    <el-container>
+    <el-container >
       <el-container>
         <el-aside width="150px">
           <el-scrollbar>
@@ -33,7 +33,7 @@
             </el-menu>
           </el-scrollbar>
         </el-aside>
-        <el-main>
+        <el-main >
           <RouterView></RouterView>
         </el-main>
       </el-container>
@@ -47,11 +47,30 @@ import store from "@/state";
 
 export default {
   name: "index",
-  methods: {},
+  methods: {
+    verification(){
+      layer.load()
+      this.$axios.post('admin/verification',{
+      }).then((res)=>{
+        if(res.data.code === 200){
+          layer.closeAll('loading')
+          layer.msg("账户鉴权成功",{icon:1,time:2000})
+        }else{
+          layer.closeAll('loading')
+          layer.msg(res.data.msg,{icon:2,time:2000})
+          setTimeout(()=>{
+            this.$router.push('/')
+          },2000)
+        }
+      })
+    }
+  },
   mounted() {
     localStorage.setItem('conceal', false)
     store.dispatch('initConceal')
-  }
+    this.verification()
+  },
+
 }
 </script>
 

@@ -1,39 +1,39 @@
 <template>
   <div class="container">
     <div class="editor">
-      <v-md-editor v-model="contents" height="800px"></v-md-editor>
+      <v-md-editor v-model="article.contents" height="800px"></v-md-editor>
     </div>
     <div class="card">
       <el-card shadow="hover">
         <el-row>
           <el-col>
             <el-form-item label="标题" >
-              <el-input v-model="title"/>
+              <el-input v-model="article.title" />
             </el-form-item>
             <el-form-item label="简介" >
-              <el-input type="textarea" v-model="summary"/>
+              <el-input type="textarea" v-model="article.summary"/>
             </el-form-item>
             <el-form-item label="分类">
-              <el-select v-model="classification">
+              <el-select v-model="article.classification">
                 <el-option label="java" value="java"/>
                 <el-option label="mysql" value="mysql"/>
               </el-select>
             </el-form-item>
           </el-col>
-          <el-button type="primary" @click="publishArticle">发布</el-button>
-        <el-upload
-            class="avatar-uploader"
-            :action=banner
-            :show-file-list="false"
-            :headers='headerObj'
-            :on-success="handleAvatarSuccess"
-            :before-upload="beforeAvatarUpload">
-          <img v-if="imageUrl" :src="imageUrl" class="avatar">
-          <el-icon v-else class="avatar-uploader-icon">
-            <Plus/>
-          </el-icon>
-          上传图片，需在文章发布后上传
-        </el-upload>
+          <el-button type="primary" @click="publishArticle">修改</el-button>
+          <el-upload
+              class="avatar-uploader"
+              :action=banner
+              :show-file-list="false"
+              :headers='headerObj'
+              :on-success="handleAvatarSuccess"
+              :before-upload="beforeAvatarUpload">
+            <img v-if="imageUrl" :src="imageUrl" class="avatar">
+            <el-icon v-else class="avatar-uploader-icon">
+              <Plus/>
+            </el-icon>
+            修改图片，若文章已修改则需先提交文章修改
+          </el-upload>
         </el-row>
         <br><br><br><br><br><br><br><br><br><br><br>
         <br><br><br><br><br><br><br><br><br><br><br>
@@ -51,11 +51,9 @@ export default {
   name: "publishArticle",
   data() {
     return {
-      imageUrl: '',
-      contents: "",//文章内容
-      title: "",//标题
-      summary: "",//文章简介
-      classification: "",//分类
+      newTitle:"",
+      article:{},
+      imageUrl:"",
       headerObj:{
         satoken:localStorage.getItem('token')
       }
@@ -63,17 +61,22 @@ export default {
   },
   computed:{
     banner(){
-      return "http://localhost:1010/admin/uploadImg/"+this.title
-    }
+      return "http://localhost:1010/admin/updateImg/"+this.article.title
+    },
+  },
+  mounted() {
+    this.article = this.$store.state.articleList
+    console.log(this.article.contents)
   },
   methods:{
     publishArticle(){
-      if(this.contents!==""&&this.title!==""&&this.summary!==""&&this.classification!==""){
-        this.$axios.put('admin/publishArticle',{
-          title:this.title,
-          summary:this.summary,
-          contents:this.contents,
-          classification:this.classification
+      if(this.article.contents!==""&&this.article.title!==""&&this.article.summary!==""&&this.article.classification!==""){
+        this.$axios.put('admin/updateArticle',{
+          id:this.article.id,
+          title:this.article.title,
+          summary:this.article.summary,
+          contents:this.article.contents,
+          classification:this.article.classification
         }).then((res)=>{
           if(res.data.code === 200){
             layer.msg(res.data.msg,{icon:1,time:2000})
@@ -90,9 +93,6 @@ export default {
       console.log(res)
       this.imageUrl = URL.createObjectURL(file.raw);
       if(res.code === 200){
-        const userItem = JSON.stringify(res.data)
-        localStorage.setItem('userItem', userItem)
-        store.dispatch('initUserItem');
         layer.msg(res.msg,{icon:1,time:2000})
       }else if(res.code === 501){
         layer.msg(res.msg,{icon:2,time:2000})
