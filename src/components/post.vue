@@ -3,7 +3,7 @@
     <div class="post-entry">
       <!--文章头像-->
       <div class="feature">
-        <router-link to="/article">
+        <router-link :to="`/article/${post.id}`">
           <img :src="post.banner"/>
         </router-link>
       </div>

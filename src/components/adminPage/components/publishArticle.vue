@@ -14,12 +14,22 @@
               <el-input type="textarea" v-model="summary"/>
             </el-form-item>
             <el-form-item label="分类">
-              <el-select v-model="classification">
-                <el-option label="java" value="java"/>
-                <el-option label="mysql" value="mysql"/>
+              <el-select v-model="classificationOne">
+                <div v-for="item in classification">
+                  <el-option :label="item.classification" :value="item.classification"/>
+                </div>
               </el-select>
             </el-form-item>
           </el-col>
+          <el-col>
+            <el-switch
+                v-model="isFocus"
+                class="ml-2"
+                style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949"
+            />&emsp;设置为焦点文章
+          </el-col>
+
+          <br>
           <el-button type="primary" @click="publishArticle">发布</el-button>
         <el-upload
             class="avatar-uploader"
@@ -55,7 +65,9 @@ export default {
       contents: "",//文章内容
       title: "",//标题
       summary: "",//文章简介
-      classification: "",//分类
+      classification: [],//分类
+      classificationOne:"",
+        isFocus:"false",
       headerObj:{
         satoken:localStorage.getItem('token')
       }
@@ -66,14 +78,25 @@ export default {
       return "http://localhost:1010/admin/uploadImg/"+this.title
     }
   },
+  mounted() {
+    this.getClassification();
+  },
   methods:{
+    getClassification(){
+      this.$axios.get('classification/getAll',{
+      }).then((res)=>{
+        // console.log(res)
+        this.classification = res.data.data
+      })
+    },
     publishArticle(){
       if(this.contents!==""&&this.title!==""&&this.summary!==""&&this.classification!==""){
         this.$axios.put('admin/publishArticle',{
           title:this.title,
           summary:this.summary,
           contents:this.contents,
-          classification:this.classification
+          classification:this.classificationOne,
+          isFocus:this.isFocus
         }).then((res)=>{
           if(res.data.code === 200){
             layer.msg(res.data.msg,{icon:1,time:2000})

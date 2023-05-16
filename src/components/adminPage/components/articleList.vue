@@ -8,7 +8,8 @@
     <el-table-column prop="pubTime" label="发布时间" width="250"/>
     <el-table-column prop="summary" label="简介" width="150"/>
     <el-table-column prop="viewsCount" label="观看人数" width="120"/>
-    <el-table-column fixed="classification" label="分类" width="120"/>
+    <el-table-column prop="classification" label="分类" width="120"/>
+    <el-table-column prop="isFocus" label="isFocus" width="120"/>
     <el-table-column fixed="right" label="管理" width="120">
       <!--删除修改-->
       <template #default="scope">

@@ -104,11 +104,6 @@ const routers = [
                 component: () => import('../components/adminPage/components/adminUserItem.vue'),
             },
             {
-                path: '/webData',
-                name: '站点数据',
-                component: () => import('../components/adminPage/components/webData.vue'),
-            },
-            {
                 path: '/publishArticle',
                 name: '发布文章',
                 component: () => import('../components/adminPage/components/publishArticle.vue'),
@@ -127,6 +122,11 @@ const routers = [
                 path: '/adminClassification',
                 name: '分类管理',
                 component: () => import('../components/adminPage/components/adminClassification.vue'),
+            },
+            {
+                path: '/adminClassificationItem',
+                name: '分类修改',
+                component: () => import('../components/adminPage/components/adminClassificationItem.vue'),
             },
             {
                 path: '/adminComment',

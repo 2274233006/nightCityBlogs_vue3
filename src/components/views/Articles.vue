@@ -3,7 +3,6 @@
     <banner></banner>
     <div class="site-content animate">
       <!-- 文章目录 -->
-
       <main class="site-main">
         <article class="hentry">
           <!-- 文章头部 -->
@@ -77,15 +76,20 @@ computed:{
   },
 },
   methods: {
-
-  },
-  mounted() {
+  getArticle(){
     this.$axios.get('article/getArticle/'+this.id,{
-
     }).then((res)=>{
       console.log(res.data)
       this.article = res.data.data
     })
+  },
+    addViewsCount(){
+    this.$axios.put('article/addViewsCount/'+this.id,{})
+    }
+  },
+  mounted() {
+   this.getArticle();
+   this.addViewsCount()
   },
 }
 </script>

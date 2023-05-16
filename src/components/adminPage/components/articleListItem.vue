@@ -15,10 +15,20 @@
             </el-form-item>
             <el-form-item label="分类">
               <el-select v-model="article.classification">
-                <el-option label="java" value="java"/>
-                <el-option label="mysql" value="mysql"/>
+                <div v-for="item in classification">
+                  <el-option :label="item.classification" :value="item.classification"/>
+                </div>
+<!--                <el-option label="java" value="java"/>-->
+<!--                <el-option label="mysql" value="mysql"/>-->
               </el-select>
             </el-form-item>
+          </el-col>
+          <el-col>
+            <el-switch
+                v-model="isFocus"
+                class="ml-2"
+                style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949"
+            />&emsp;设置为焦点文章
           </el-col>
           <el-button type="primary" @click="publishArticle">修改</el-button>
           <el-upload
@@ -54,9 +64,11 @@ export default {
       newTitle:"",
       article:{},
       imageUrl:"",
+      isFocus:false,
       headerObj:{
         satoken:localStorage.getItem('token')
-      }
+      },
+      classification:[]
     }
   },
   computed:{
@@ -66,9 +78,16 @@ export default {
   },
   mounted() {
     this.article = this.$store.state.articleList
-    console.log(this.article.contents)
+    this.getClassification()
+    this.isFocus = this.article.isFocus === "true"
   },
   methods:{
+    getClassification(){
+      this.$axios.get('classification/getAll',{
+      }).then((res)=>{
+        this.classification = res.data.data
+      })
+    },
     publishArticle(){
       if(this.article.contents!==""&&this.article.title!==""&&this.article.summary!==""&&this.article.classification!==""){
         this.$axios.put('admin/updateArticle',{
@@ -76,7 +95,8 @@ export default {
           title:this.article.title,
           summary:this.article.summary,
           contents:this.article.contents,
-          classification:this.article.classification
+          classification:this.article.classification,
+          isFocus:this.isFocus
         }).then((res)=>{
           if(res.data.code === 200){
             layer.msg(res.data.msg,{icon:1,time:2000})
@@ -90,7 +110,6 @@ export default {
       }else layer.msg("文章信息不全",{icon:2,time:2000})
     },
     handleAvatarSuccess(res, file) {
-      console.log(res)
       this.imageUrl = URL.createObjectURL(file.raw);
       if(res.code === 200){
         layer.msg(res.msg,{icon:1,time:2000})
@@ -103,7 +122,6 @@ export default {
 
     },
     beforeAvatarUpload(file) {
-      console.log(this.banner)
       const isJPG = file.type === 'image/jpeg';
       const isLt2M = file.size / 1024 / 1024 < 2;
       if (!isJPG) {

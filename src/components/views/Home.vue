@@ -38,7 +38,7 @@
       <main class="site-main">
         <div class="notify">
           <div class="search-result">
-            <span>分类"{{ classify }}" 相关文章</span>
+            <span >分类"{{ classify }}" 相关文章</span>
           </div>
         </div>
         <div v-for="item in categorizedItems">
@@ -46,7 +46,6 @@
         </div>
       </main>
     </div>
-
   </div>
 </template>
 
@@ -64,7 +63,7 @@ export default {
   data() {
     return {
       features: [],
-      article:[]
+      article:[],
     }
   },
   components: {
@@ -84,6 +83,9 @@ export default {
 
   },
   computed: {
+    categorizedItems(){
+      return this.$store.state.categorizedItems
+    },
     // 获取当前文章分类
     classify() {
       return this.$route.params.classification
@@ -91,15 +93,6 @@ export default {
     //用于判断是否显示相应区域
     classifyBoolean() {
       return this.$route.params.classification === undefined
-    },
-    categorizedItems() {
-      const newArticle = [];
-      for (const item of this.article) {
-        if(item.classification ===this.classify){
-          newArticle.push(item)
-        }
-      }
-      return newArticle;
     },
   },
   methods: {
@@ -120,23 +113,15 @@ export default {
           layer.msg(error.message,{icon:2,time:2000})
       })
     },
-
     //焦点图数据
     getFeatures() {
-      this.$axios.get('http://localhost:3000/features', {}).then((res) => {
-        this.features = res.data
-      })
-    },
-    // post分类查询
-    PostClassificationQuery() {
-      //筛选操作在后端编写，返回处理完成之后的数据
-      this.$axios.get('http://localhost:3000/postList', {}).then((res) => {
-        console.log(res.data)
+      this.$axios.get('article/getFocusArticle', {}).then((res) => {
+        console.log(res)
+        this.features = res.data.data
       })
     },
     getArticle(){
       this.$axios.get("article/all",{
-
       }).then((res)=>{
         console.log(res.data.data)
         this.article = res.data.data

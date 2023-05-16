@@ -1,8 +1,8 @@
 <template>
     <div class="feature">
-        <router-link to="/article">
+        <router-link :to="`/article/${data.id}`">
             <div class="feature-title"><span class="foverlay">{{data.title}}</span></div>
-            <img :src="data.img">
+            <img :src="data.banner">
         </router-link>
     </div>
 </template>
@@ -12,14 +12,7 @@
         name: "feature",
         props: {
             data: {
-                type: Object,
-                default: () =>{
-                    return{
-                        title: 'Akina',
-                        img: 'https://cdn.zhebk.cn/usr/themes/Akina//images/feature/feature1.jpg',
-                        href: 'https://zhebk.cn/Web/Akina.html'
-                    }
-                }
+                type: Object
             }
         }
     }

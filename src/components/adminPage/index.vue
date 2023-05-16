@@ -12,9 +12,6 @@
                 <el-menu-item index="1-2" @click="this.$router.push('/adminUser')">
                   用户管理
                 </el-menu-item>
-                <el-menu-item index="1-3" @click="this.$router.push('/webData')">
-                  站点数据
-                </el-menu-item>
                 <el-menu-item index="1-4" @click="this.$router.push('/publishArticle')">
                   发布文章
                 </el-menu-item>
@@ -62,7 +59,35 @@ export default {
             this.$router.push('/')
           },2000)
         }
-      })
+      }).catch(function (error) {
+        layer.load();
+        if (error.response) {
+          // 请求成功发出且服务器也响应了状态码，但状态代码超出了 2xx 的范围
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+          setTimeout(()=>{
+            layer.closeAll('loading');
+            layer.msg("请求出错！ "+error.message,{icon:2,time:2000})
+          },1000)
+        } else if (error.request) {
+          // 请求已经成功发起，但没有收到响应
+          // `error.request` 在浏览器中是 XMLHttpRequest 的实例，
+          // 而在node.js中是 http.ClientRequest 的实例
+          console.log(error.message);
+          setTimeout(()=>{
+            layer.closeAll('loading');
+            layer.msg("请求出错！ "+error.message,{icon:2,time:2000})
+          },1000)
+        } else {
+          // 发送请求时出了点问题
+          console.log('Error', error.message);
+          setTimeout(()=>{
+            layer.closeAll('loading');
+            layer.msg("请求出错！ "+error.message,{icon:2,time:2000})
+          },1000)
+        }
+      });
     }
   },
   mounted() {

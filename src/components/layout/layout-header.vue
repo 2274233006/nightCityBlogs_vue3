@@ -20,9 +20,9 @@
       <div class="menu-item hasChild">
         <a href="#">文章</a>
         <div class="childMenu" v-if="category.length">
-          <div class="sub-menu" v-for="item in category" :key="item.title">
-            <router-link :to="`/category/${item.title}`">
-              {{ item.title }}
+          <div class="sub-menu" v-for="item in category" :key="item.id">
+            <router-link :to="`/category/${item.classification}`"  @click="getCategorizedItems(item.classification)">
+              {{ item.classification }}
             </router-link>
           </div>
         </div>
@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import store from "@/state";
 export default {
   data() {
     return {
@@ -80,6 +80,14 @@ export default {
     window.removeEventListener("scroll", this.watchScroll)
   },
   methods: {
+    getCategorizedItems(classify){
+      return this.$axios.get('article/categorizedItems/'+classify,{
+      }).then((res)=>{
+        console.log(res.data.data)
+        localStorage.setItem('categorizedItems', JSON.stringify(res.data.data))
+        store.dispatch('initCategorizedItems');
+      })
+    },
     watchScroll() {
       let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
       if (scrollTop === 0) {
@@ -95,9 +103,9 @@ export default {
     },
 
     getCategory() {
-      axios.get('http://localhost:3000/category', {
+      this.$axios.get('classification/getAll', {
       }).then((res) => {
-        this.category = res.data
+        this.category = res.data.data
       })
     },
     getRole() {
