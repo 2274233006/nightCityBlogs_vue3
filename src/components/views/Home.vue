@@ -29,8 +29,17 @@
       <main class="site-main">
         <section-title>推荐</section-title>
         <div v-for="item in article">
-          <post :post="item"></post>
+          <post :post="item" :banner="banner(item)"></post>
         </div>
+<!--        分页-->
+        <el-pagination
+            v-model:current-page="pagination"
+            :page-size="20"
+            background
+            layout="prev, pager, next"
+            :total="total"
+            @click="this.getArticle()"
+        />
       </main>
     </div>
 
@@ -42,8 +51,16 @@
           </div>
         </div>
         <div v-for="item in categorizedItems">
-          <post :post="item"></post>
+          <post :post="item" :banner="banner(item)"></post>
         </div>
+        <el-pagination
+            v-model:current-page="pagination1"
+            :page-size="20"
+            background
+            layout="prev, pager, next"
+            :total="total1"
+            @click="this.getArticle()"
+        />
       </main>
     </div>
   </div>
@@ -64,6 +81,10 @@ export default {
     return {
       features: [],
       article:[],
+      pagination: 1,//页码
+      total: 1,
+      pagination1: 1,//页码
+      total1: 1,
     }
   },
   components: {
@@ -83,19 +104,35 @@ export default {
 
   },
   computed: {
+    offset() {
+      return 5 * (this.pagination - 1)
+    },
+    offset1() {
+      return 5 * (this.pagination1 - 1)
+    },
     categorizedItems(){
+
       return this.$store.state.categorizedItems
     },
     // 获取当前文章分类
     classify() {
+      this.getCategorizedItems(this.$route.params.classification);
       return this.$route.params.classification
     },
     //用于判断是否显示相应区域
     classifyBoolean() {
       return this.$route.params.classification === undefined
     },
+
   },
   methods: {
+    banner(item){
+      if(item.banner === null){
+        item.banner = 'https://nightcityblogs-1312951467.cos.ap-shanghai.myqcloud.com/logo.jpg'
+        return item.banner
+      }
+      return item.banner
+    },
     // token校验
     verifyLogin(){
       this.$axios.post('user/verify',{
@@ -116,17 +153,26 @@ export default {
     //焦点图数据
     getFeatures() {
       this.$axios.get('article/getFocusArticle', {}).then((res) => {
-        console.log(res)
         this.features = res.data.data
       })
     },
     getArticle(){
-      this.$axios.get("article/all",{
+      this.$axios.get("article/all/"+this.offset,{
       }).then((res)=>{
-        console.log(res.data.data)
+        const number = res.data.msg
+        this.total = number * 20 / 5
         this.article = res.data.data
       })
-    }
+    },
+    getCategorizedItems(classify){
+      return this.$axios.get('article/categorizedItems/'+classify+"/"+this.offset1,{
+      }).then((res)=>{
+        const number = res.data.msg
+        this.total1 = number * 20 / 5
+        localStorage.setItem('categorizedItems', JSON.stringify(res.data.data))
+        store.dispatch('initCategorizedItems');
+      })
+    },
   }
 }
 </script>

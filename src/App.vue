@@ -12,6 +12,7 @@ import layoutHeader from '@/components/layout/layout-header.vue'
 import layoutBody from '@/components/layout/layout-body.vue'
 import layoutFooter from '@/components/layout/layout-footer.vue'
 import { mapState } from 'vuex'
+import store from "@/state";
 export default {
   components:{
     layoutHeader,
@@ -23,6 +24,21 @@ export default {
   },
   methods:{
 
+  },
+  mounted() {
+    this.$axios.post('user/verify',{
+
+    }).then((res)=>{
+      if(!res.data){
+        localStorage.setItem('loginStatus',false)
+        store.dispatch('initLoginStatus');
+      }
+      else {
+        localStorage.setItem('loginStatus',true)
+        store.dispatch('initLoginStatus');
+      }
+
+    })
   }
 }
 </script>

@@ -85,7 +85,6 @@ export default {
     getClassification(){
       this.$axios.get('classification/getAll',{
       }).then((res)=>{
-        // console.log(res)
         this.classification = res.data.data
       })
     },
@@ -110,7 +109,6 @@ export default {
       }else layer.msg("文章信息不全",{icon:2,time:2000})
     },
     handleAvatarSuccess(res, file) {
-      console.log(res)
       this.imageUrl = URL.createObjectURL(file.raw);
       if(res.code === 200){
         const userItem = JSON.stringify(res.data)
@@ -126,7 +124,6 @@ export default {
 
     },
     beforeAvatarUpload(file) {
-      console.log(this.banner)
       const isJPG = file.type === 'image/jpeg';
       const isLt2M = file.size / 1024 / 1024 < 2;
       if (!isJPG) {

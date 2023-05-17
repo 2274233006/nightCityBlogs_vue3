@@ -58,7 +58,6 @@ export default {
         cancelButtonText: 'Cancel',
       })
           .then(({value}) => {
-            console.log(value)
             this.$axios.post('classification/addClassification/'+value,{
 
             }).then((res)=>{
@@ -82,7 +81,6 @@ export default {
       })
     },
     SaveClassification(article) {
-      console.log(article)
       const classification = JSON.stringify(article)
       localStorage.setItem("classification", classification)
       store.dispatch("initClassification")

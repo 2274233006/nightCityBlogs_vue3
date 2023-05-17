@@ -21,7 +21,7 @@
         <a href="#">文章</a>
         <div class="childMenu" v-if="category.length">
           <div class="sub-menu" v-for="item in category" :key="item.id">
-            <router-link :to="`/category/${item.classification}`"  @click="getCategorizedItems(item.classification)">
+            <router-link :to="`/category/${item.classification}`">
               {{ item.classification }}
             </router-link>
           </div>
@@ -80,14 +80,13 @@ export default {
     window.removeEventListener("scroll", this.watchScroll)
   },
   methods: {
-    getCategorizedItems(classify){
-      return this.$axios.get('article/categorizedItems/'+classify,{
-      }).then((res)=>{
-        console.log(res.data.data)
-        localStorage.setItem('categorizedItems', JSON.stringify(res.data.data))
-        store.dispatch('initCategorizedItems');
-      })
-    },
+    // getCategorizedItems(classify){
+    //   return this.$axios.get('article/categorizedItems/'+classify,{
+    //   }).then((res)=>{
+    //     localStorage.setItem('categorizedItems', JSON.stringify(res.data.data))
+    //     store.dispatch('initCategorizedItems');
+    //   })
+    // },
     watchScroll() {
       let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
       if (scrollTop === 0) {

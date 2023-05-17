@@ -144,7 +144,6 @@ export default {
             layer.msg("请求出错！ "+error.message,{icon:2,time:2000})
           },1000)
         } else {
-
           // 发送请求时出了点问题
           console.log('Error', error.message);
           setTimeout(()=>{
@@ -165,6 +164,9 @@ export default {
         if(res.data.code === 200){
           layer.closeAll("loading")
           layer.msg(res.data.msg,{icon:1,time:2000})
+          setTimeout(()=>{
+            this.$router.push('/login')
+          },2000)
         }else{
           layer.closeAll("loading")
           layer.msg(res.data.msg,{icon:2,time:2000})
@@ -174,7 +176,7 @@ export default {
   },
   mounted() {
     localStorage.setItem('conceal',false)
-    store.dispatch('initConst')
+    store.dispatch('initConceal')
   }
 };
 

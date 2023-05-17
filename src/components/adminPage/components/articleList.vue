@@ -1,12 +1,12 @@
 <template>
   <el-table :data="articleList" style="width: 100%">
     <el-table-column prop="id" label="ID" width="60"/>
-    <el-table-column prop="title" label="标题" width="120"/>
+    <el-table-column prop="title" label="标题" width="180"/>
     <el-table-column prop="isTop" label="置顶" width="120"/>
     <el-table-column prop="isHot" label="热门" width="120"/>
     <el-table-column prop="commentsCount" label="评论数" width="120"/>
     <el-table-column prop="pubTime" label="发布时间" width="250"/>
-    <el-table-column prop="summary" label="简介" width="150"/>
+    <el-table-column prop="summary" label="简介" width="150" :show-overflow-tooltip="true"/>
     <el-table-column prop="viewsCount" label="观看人数" width="120"/>
     <el-table-column prop="classification" label="分类" width="120"/>
     <el-table-column prop="isFocus" label="isFocus" width="120"/>

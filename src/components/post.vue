@@ -51,8 +51,11 @@ export default {
   props: {
     post: {
       type: Object
+    },
+    banner:{
+      type: String
     }
-  }
+  },
 }
 </script>
 

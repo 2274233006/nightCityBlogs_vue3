@@ -54,7 +54,6 @@ export default {
   },
   methods: {
     saveUserItem(userItem){
-      console.log(userItem.userName)
       const userItemOne = JSON.stringify(userItem)
       localStorage.setItem("userItemOne",userItemOne)
       store.dispatch("initUserItemOne")

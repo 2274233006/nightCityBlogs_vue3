@@ -49,13 +49,11 @@ export default {
   },
   computed: {
     classificationOne() {
-      console.log(this.$store.state.classification)
       return this.$store.state.classification
     }
   },
   methods: {
     submit() {
-      console.log(this.$store.state.classification.classification)
       if (this.classificationItem.classification!==""){
         this.$axios.put("classification/updateClassification", {
           id: this.classificationOne.id,
