@@ -41,15 +41,15 @@
 
 3. 打开项目文件夹，修改src/http/index中的baseURL为springboot的接口URL，后端项目地址点这儿 —>https://gitee.com/NightCityDemo/nightcityblogs_spring-boot
 
-        ```js
-    import axios from "axios";
+   ```js
+   import axios from "axios";
     const instance = axios.create({
         baseURL: '更改为自己的URL，如下',
         // baseURL: 'http://localhost:1010/',
         timeout:10000,
+    instance.interceptors.request.use....
     });
-    	instance.interceptors.request.use....
-        ```
+   ```
 
 4. 启动项目前确保你已经部署完后端springBoot的程序以及Mysql、redis、同源策略等
 
