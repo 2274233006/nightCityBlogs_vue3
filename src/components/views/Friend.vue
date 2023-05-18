@@ -27,16 +27,6 @@
     // import {fetchFriend} from '../api'
     export default {
         name: "Friend",
-        data(){
-          return{
-              websiteInfo: {
-                name:"111",
-                domain:"1",
-                desc:"11"
-              },
-              list: []
-          }
-        },
         components:{
             Quote,
             sectionTitle

@@ -3,7 +3,7 @@
     <el-table-column prop="id" label="ID" width="60"/>
     <el-table-column prop="userName" label="用户名" width="120"/>
     <el-table-column prop="role" label="权限" width="120"/>
-    <el-table-column prop="password" label="密码" width="120"/>
+    <el-table-column prop="password" label="密码" width="120" :show-overflow-tooltip="true"/>
     <el-table-column prop="emailAddress" label="邮箱" width="250"/>
     <el-table-column prop="creatTime" label="创建时间" width="250"/>
     <el-table-column prop="updateTime" label="更新时间" width="250"/>

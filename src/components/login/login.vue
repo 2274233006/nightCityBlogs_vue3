@@ -52,6 +52,7 @@
 
 
 <script>
+
 import store from "@/state";
 import {mapState} from "vuex";
 export default {
@@ -78,6 +79,8 @@ export default {
     },
     //登录
     async login() {
+      const password = this.$md5(this.password)
+      console.log(password)
       if(this.username == ""){
         layer.msg('用户名不能为空',{icon:2,time:1000})
         return
@@ -85,7 +88,7 @@ export default {
         layer.msg('密码不能为空',{icon:2,time:1000})
       }
       else{
-        await this.loginCheck();
+        await this.loginCheck(password);
       }
     },
     //注册
@@ -97,10 +100,10 @@ export default {
       this.$router.push("/forget")
     },
     //登录
-    async loginCheck(){
+    async loginCheck(password){
       await this.$axios.post('user/login',{
         username:this.username,
-        password:this.password
+        password:password
       }).then((res)=>{
         layer.load();
         if(res.data.code === 200) {

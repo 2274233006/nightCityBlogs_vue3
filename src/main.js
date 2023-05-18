@@ -27,7 +27,8 @@ import '@kangc/v-md-editor/lib/style/preview.css';
 
 //vuex
 import store from "@/state";
-
+//MD5加密
+import md5 from 'js-md5';
 //编辑主题
 VueMarkdownEditor.use(githubTheme, {
     Hljs: hljs,
@@ -42,10 +43,9 @@ import 'vue3-layer/dist/s3Layer.css';
 
 // 创建app实例
 let app = createApp(App);
-
 //全局挂载axios
 app.config.globalProperties.$axios = axios
-
+app.config.globalProperties.$md5 = md5
 // 启用vue-router
 app.use(router)
 

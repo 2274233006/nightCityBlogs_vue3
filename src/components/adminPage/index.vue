@@ -53,11 +53,8 @@ export default {
           layer.closeAll('loading')
           layer.msg("账户鉴权成功",{icon:1,time:2000})
         }else{
+          this.$router.push('/')
           layer.closeAll('loading')
-          layer.msg(res.data.msg,{icon:2,time:2000})
-          setTimeout(()=>{
-            this.$router.push('/')
-          },2000)
         }
       }).catch(function (error) {
         layer.load();

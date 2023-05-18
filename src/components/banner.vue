@@ -41,32 +41,18 @@ export default {
       socials: [
         {
           id: 1,
-          title: 'QQ',
-          icon: 'iconqq',
-          color: '#1AB6FF ',
-          href: 'http://wpa.qq.com/msgrd?v=3&uin=1224971566&site=qq&menu=yes'
-        },
-        {
-          id: 2,
           title: 'Gitee',
           icon: 'icongitee',
           color: '#d81e06',
-          href: 'https://gitee.com/fengziy'
+          href: 'https://gitee.com/NightCityDemo'
         },
         {
-          id: 3,
+          id: 2,
           title: 'GitHub',
           icon: 'icongithub',
           color: '',
-          href: 'https://github.com/fengziye'
+          href: 'https://github.com/2274233006'
         },
-        {
-          id: 4,
-          title: 'CSDN',
-          icon: 'iconcsdn',
-          color: 'red',
-          href: 'https://blog.csdn.net/feng_zi_ye'
-        }
       ]
     }
   },

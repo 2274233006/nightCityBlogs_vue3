@@ -49,7 +49,35 @@ export default {
             layer.closeAll('loading');
             layer.msg(res.data.msg,{icon:2,time:2000})
           }
-        })
+        }).catch(function (error) {
+          layer.load();
+          if (error.response) {
+            // 请求成功发出且服务器也响应了状态码，但状态代码超出了 2xx 的范围
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+            setTimeout(()=>{
+              layer.closeAll('loading');
+              layer.msg("请求出错！ "+error.message,{icon:2,time:2000})
+            },1000)
+          } else if (error.request) {
+            // 请求已经成功发起，但没有收到响应
+            // `error.request` 在浏览器中是 XMLHttpRequest 的实例，
+            // 而在node.js中是 http.ClientRequest 的实例
+            console.log(error.message);
+            setTimeout(()=>{
+              layer.closeAll('loading');
+              layer.msg("请求出错！ "+error.message,{icon:2,time:2000})
+            },1000)
+          } else {
+            // 发送请求时出了点问题
+            console.log('Error', error.message);
+            setTimeout(()=>{
+              layer.closeAll('loading');
+              layer.msg("请求出错！ "+error.message,{icon:2,time:2000})
+            },1000)
+          }
+        });
       }else{
         layer.closeAll('loading');
         layer.msg("填写的邮箱与当前账户邮箱不符合",{icon:2,time:2000})
@@ -63,9 +91,10 @@ export default {
       }else if(!/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test(this.emailAddress)){
         layer.msg("请输入正确的邮箱格式",{icon:2,time:2000})
       }else{
+        const password = this.$md5(this.password)
         this.$axios.post("update/unsubscribe",{
           username:this.userItem.username,
-          password:this.password,
+          password:password,
           authCode:this.authCode
         }).then((res)=>{
           if(res.data.code === 200){
@@ -79,7 +108,35 @@ export default {
               this.$router.push("/login")
             },2000)
           }else layer.msg(res.data.msg,{icon:2,time:2000})
-        })
+        }).catch(function (error) {
+          layer.load();
+          if (error.response) {
+            // 请求成功发出且服务器也响应了状态码，但状态代码超出了 2xx 的范围
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+            setTimeout(()=>{
+              layer.closeAll('loading');
+              layer.msg("请求出错！ "+error.message,{icon:2,time:2000})
+            },1000)
+          } else if (error.request) {
+            // 请求已经成功发起，但没有收到响应
+            // `error.request` 在浏览器中是 XMLHttpRequest 的实例，
+            // 而在node.js中是 http.ClientRequest 的实例
+            console.log(error.message);
+            setTimeout(()=>{
+              layer.closeAll('loading');
+              layer.msg("请求出错！ "+error.message,{icon:2,time:2000})
+            },1000)
+          } else {
+            // 发送请求时出了点问题
+            console.log('Error', error.message);
+            setTimeout(()=>{
+              layer.closeAll('loading');
+              layer.msg("请求出错！ "+error.message,{icon:2,time:2000})
+            },1000)
+          }
+        });
       }
     }
   }

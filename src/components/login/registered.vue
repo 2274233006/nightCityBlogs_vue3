@@ -155,9 +155,10 @@ export default {
     },
     register(){
       layer.load()
+      const password = this.$md5(this.password)
       this.$axios.put('user/register',{
         username:this.username,
-        password:this.password,
+        password:password,
         emailAddress:this.email,
         authCode:this.authCode
       }).then((res)=>{
@@ -171,7 +172,35 @@ export default {
           layer.closeAll("loading")
           layer.msg(res.data.msg,{icon:2,time:2000})
         }
-      })
+      }).catch(function (error) {
+        layer.load();
+        if (error.response) {
+          // 请求成功发出且服务器也响应了状态码，但状态代码超出了 2xx 的范围
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+          setTimeout(()=>{
+            layer.closeAll('loading');
+            layer.msg("请求出错！ "+error.message,{icon:2,time:2000})
+          },1000)
+        } else if (error.request) {
+          // 请求已经成功发起，但没有收到响应
+          // `error.request` 在浏览器中是 XMLHttpRequest 的实例，
+          // 而在node.js中是 http.ClientRequest 的实例
+          console.log(error.message);
+          setTimeout(()=>{
+            layer.closeAll('loading');
+            layer.msg("请求出错！ "+error.message,{icon:2,time:2000})
+          },1000)
+        } else {
+          // 发送请求时出了点问题
+          console.log('Error', error.message);
+          setTimeout(()=>{
+            layer.closeAll('loading');
+            layer.msg("请求出错！ "+error.message,{icon:2,time:2000})
+          },1000)
+        }
+      });
     }
   },
   mounted() {
