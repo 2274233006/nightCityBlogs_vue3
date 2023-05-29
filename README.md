@@ -53,7 +53,7 @@
 1. 克隆项目到本地
 
    ```cmd
-   git clone [https://gitee.com/NightCityDemo/nightCityBlogs.git](https://github.com/2274233006/nightCityBlogs_springBoot.git)
+   git clone https://github.com/2274233006/nightCityBlogs_springBoot.git
    ```
 
 2. 安装项目依赖（前端）
@@ -62,7 +62,7 @@
    npm install
    ```
 
-3. 打开项目文件夹，修改src/http/index中的baseURL为springboot的接口URL，后端项目地址点这儿 —>[https://gitee.com/NightCityDemo/nightcityblogs_spring-boot](https://github.com/2274233006/nightCityBlogs_springBoot)
+3. 打开项目文件夹，修改src/http/index中的baseURL为springboot的接口URL，后端项目地址点这儿 —>https://github.com/2274233006/nightCityBlogs_springBoot
 
    ```js
    import axios from "axios";
