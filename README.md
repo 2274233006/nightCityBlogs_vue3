@@ -17,7 +17,7 @@
 
 - 简介
 
-  基于Vue3搭建，页面样式取自开源项目https://github.com/fengziye/Gblog，接入后端，使用elementPlus，axios，vuex，vue-router完善项目，具体技术栈如下：
+  基于Vue3搭建，页面样式取自开源项目[https://github.com/fengziye/Gblog](https://github.com/fengziye/Gblog)，接入后端，使用elementPlus，axios，vuex，vue-router完善项目，具体技术栈如下：
 
   Vue3、elementPlus、axios、v-md-editor（markdown编辑器）、highlight.js、vuex、vue3-layer、vue-router、MD5加密
 
